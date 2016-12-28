@@ -14,7 +14,7 @@ out/
 hs_err_pid*
 
 # gradle file
-build*
+build/
 gradle*
 .gradle
 .iml
