@@ -1,4 +1,4 @@
-package spike.emde.download;
+package spike.emde.file;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,10 +48,13 @@ public class FileTransfer {
         File file = new File(targetPath+uploadFile.getOriginalFilename());
         file.deleteOnExit();
         if(file.exists()) {
+            inputStream.close();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This sourceFile already exist.");
         } else {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             WriteToFile(inputStream,fileOutputStream);
+            inputStream.close();
+            fileOutputStream.close();
             return ResponseEntity.status(HttpStatus.OK).body("File upload successfully");
         }
     }
