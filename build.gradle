@@ -5,6 +5,7 @@ apply plugin: 'mongo'
 buildscript {
     ext {
         springBootVersion = '1.4.1.RELEASE'
+        poiVersion = '3.15'
     }
     repositories {
         mavenCentral()
@@ -33,7 +34,9 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     compile "org.springframework.data:spring-data-mongodb:1.9.5.RELEASE"
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-    compile "org.apache.poi:poi:3.9"
+    compile "org.apache.poi:poi:${poiVersion}"
+    compile "org.apache.poi:poi-ooxml:${poiVersion}"
+    compile "org.apache.poi:poi-ooxml-schemas:${poiVersion}"
 }
 
 jar {
