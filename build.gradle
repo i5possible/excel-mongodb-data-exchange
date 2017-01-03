@@ -26,10 +26,6 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     compile "org.springframework.data:spring-data-mongodb:1.9.5.RELEASE"
@@ -37,6 +33,7 @@ dependencies {
     compile "org.apache.poi:poi:${poiVersion}"
     compile "org.apache.poi:poi-ooxml:${poiVersion}"
     compile "org.apache.poi:poi-ooxml-schemas:${poiVersion}"
+    compileOnly "org.projectlombok:lombok:1.16.12"
 }
 
 jar {
