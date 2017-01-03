@@ -2,11 +2,10 @@ package spike.emde.card.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import spike.emde.utils.MyConstant;
 
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -16,7 +15,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
   @Data
     needs the lombok plugin and enable the annotation processor.
  */
-@Log4j
 @JsonInclude(value = NON_EMPTY)
 public class Card {
     private String id;
@@ -40,11 +38,6 @@ public class Card {
 
     // This member is to test the JsonInclude.
     //private String unused;
-
-
-    public static Logger getLog() {
-        return log;
-    }
 
     public String getId() {
         return id;
@@ -75,7 +68,8 @@ public class Card {
     }
 
     public String getAssignedToString() {
-        return assignedTo == null ? MyConstant.empty : assignedTo.toArray().toString();
+        return assignedTo == null ? MyConstant.empty :
+                String.join(",",assignedTo.toArray(new String[assignedTo.size()]));
     }
 
     public void setAssignedTo(List<String> assignedTo) {
@@ -154,5 +148,13 @@ public class Card {
 //        map.put("size", size);
 
         return map;
+    }
+
+    public static void main(String[] args) {
+        Class<Card> cardClass = Card.class;
+        Field[] declaredFields = cardClass.getDeclaredFields();
+        for (int i = 0; i < declaredFields.length; i++) {
+            System.out.println(declaredFields[i].getName());
+        }
     }
 }
