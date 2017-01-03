@@ -11,7 +11,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class CardServicesImplTest {
-
     @Test
     public void getCard() throws Exception {
         //given
@@ -25,4 +24,5 @@ public class CardServicesImplTest {
         assertTrue(card.isPresent());
     }
 
+    // TODO: 03/01/2017 A test for read card using card services is needed.
 }
