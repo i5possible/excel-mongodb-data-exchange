@@ -1,4 +1,4 @@
-package spike.emde.excel;
+package spike.emde.utils;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -16,6 +16,14 @@ import java.util.List;
 
 public class ExcelUtils {
     private static final String excelSourcePath = "src/main/resources/excel/";
+
+    /**
+     * Assume that the content to write are String only.
+     */
+    public static void WriteToExcel(String[][] content,XSSFWorkbook sheets) {
+        int rows = content.length;
+
+    }
 
     public static void WriteAddressToExcel(String fileName) throws IOException {
         SXSSFWorkbook wb = new SXSSFWorkbook(100);
