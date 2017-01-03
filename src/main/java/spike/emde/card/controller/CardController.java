@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spike.emde.card.model.Card;
 import spike.emde.card.service.CardServices;
+import spike.emde.utils.CardUtils;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 public class CardController {
@@ -37,8 +37,8 @@ public class CardController {
         Write the cardInfo to an excel.
         Send the excel file to eh user.
          */
-        Optional<Card> card = cardServices.getCard(cardId);
-
+        Card card = cardServices.getCard(cardId).get();
+        CardUtils.WriteCardToExcel(card, CardUtils.getCardFilePathByName("firstCard.xlsx"));
         return ResponseEntity.ok().build();
     }
 }
