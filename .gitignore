@@ -30,3 +30,6 @@ gradle*
 
 # binary file
 bin
+
+# resource file
+src/main/resources
