@@ -8,7 +8,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-public class ExcelUtlisTest {
+public class ExcelUtilsTest {
     @Test
     public void shouldReturn3RowsAnd4ColumnStringArray() throws IOException {
         String fileName = "HelloWorld.xlsx";
