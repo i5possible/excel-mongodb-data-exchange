@@ -20,10 +20,24 @@ public class ExcelUtils {
     /**
      * Assume that the content to write are String only.
      */
-    public static void WriteToExcel(String[][] content,XSSFWorkbook sheets) {
+    public static void WriteToExcel(String[][] content,String filePath) throws IOException {
+        SXSSFWorkbook sheets = new SXSSFWorkbook(100);
         int rows = content.length;
-
+        Sheet sh = sheets.createSheet();
+        for (int rowNum = 0; rowNum < rows; rowNum++) {
+            Row row = sh.createRow(rowNum);
+            int cellLength = content[rowNum].length;
+            for (int cellNum = 0; cellNum < cellLength; cellNum++) {
+                Cell cell = row.createCell(cellNum);
+                cell.setCellValue(content[rowNum][cellNum]);
+            }
+        }
+        FileOutputStream out = new FileOutputStream(new File(filePath));
+        sheets.write(out);
+        out.close();
+        sheets.dispose();
     }
+
 
     public static void WriteAddressToExcel(String fileName) throws IOException {
         SXSSFWorkbook wb = new SXSSFWorkbook(100);
