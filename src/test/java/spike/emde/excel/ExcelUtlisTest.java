@@ -4,13 +4,20 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class ExcelUtlisTest {
     @Test
-    public void shouldReturn3RowsAnd4ColumnStringArray () throws IOException {
+    public void shouldReturn3RowsAnd4ColumnStringArray() throws IOException {
         String fileName = "HelloWorld.xlsx";
         String[][] strings = ExcelUtils.ReadFromExcel(fileName);
-        assertEquals(strings.length,3);
+        String[][] expectedStrings = {
+                {"A1", "B1", "C1", "D1"},
+                {"A2", "B2", "C2", "D2"},
+                {"A3", "B3", "C3", "D3"}
+        };
+        assertEquals(strings.length, 3);
+        assertArrayEquals(expectedStrings, strings);
     }
 }
