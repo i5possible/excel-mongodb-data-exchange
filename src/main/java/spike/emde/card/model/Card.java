@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.extern.log4j.Log4j;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
+import java.util.List;
 
 /*
   @Data
@@ -14,7 +16,19 @@ import javax.validation.constraints.NotNull;
 public class Card {
     private String id;
     @NotNull
-    private String description;
+    private String brief;
     @NotNull
     private String content;
+
+    private List<String> assignedTo;
+
+    private String priority;
+
+    private Date dueDate;
+
+    private double estimateHours;
+
+    private  String classOfServices;
+
+    private String size;
 }
