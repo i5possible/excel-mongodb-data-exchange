@@ -22,11 +22,6 @@ public class CardServicesImpl implements CardServices {
     }
 
     @Override
-    public List<Card> getCardsBySize(String[] cardIds) {
-        return null;
-    }
-
-    @Override
     public List<Card> getCardsBySize(String size) {
         List<Card> cards = cardRepository.FindBySize(size);
         return cards;
