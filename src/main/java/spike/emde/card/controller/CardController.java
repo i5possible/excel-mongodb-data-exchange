@@ -1,6 +1,7 @@
 package spike.emde.card.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,19 +33,15 @@ public class CardController {
         return ResponseEntity.accepted().build();
     }
 
-    @GetMapping(value = "card/export/{cardId}")
+    @GetMapping(value = "card/export/{cardId}", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     public ResponseEntity getCardExcel(@PathVariable(value = "cardId") String cardId) {
-        /*
-        Get the card info.
-        Write the cardInfo to an excel.
-        Send the excel file to eh user.
-         */
         Card card = cardServices.getCard(cardId).get();
         String filePath = CardUtils.getCardFilePathByName("firstCard.xlsx");
         CardUtils.WriteCardToExcel(card, filePath);
         File exportFile = new File(filePath);
-
-        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .header("Content-Disposition", "attachment; filename=\"" + exportFile.getName() + "\"").body(exportFile);
+        FileSystemResource fileSystemResource = new FileSystemResource(exportFile);
+        return ResponseEntity.status(HttpStatus.OK)
+                .header("Content-Disposition", "attachment; filename=\"" + exportFile.getName() + "\"")
+                .body(fileSystemResource);
     }
 }
