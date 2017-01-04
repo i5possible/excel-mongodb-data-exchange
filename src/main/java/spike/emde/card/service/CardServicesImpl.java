@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import spike.emde.card.model.Card;
 import spike.emde.card.repository.CardRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,8 +22,14 @@ public class CardServicesImpl implements CardServices {
     }
 
     @Override
-    public Card[] getCards(String[] cardIds) {
-        return new Card[0];
+    public List<Card> getCardsBySize(String[] cardIds) {
+        return null;
+    }
+
+    @Override
+    public List<Card> getCardsBySize(String size) {
+        List<Card> cards = cardRepository.FindBySize(size);
+        return cards;
     }
 
     @Override

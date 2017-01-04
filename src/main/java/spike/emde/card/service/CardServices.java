@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface CardServices {
     Optional<Card> getCard(String cardId);
 
-    Card[] getCards(String[] cardIds);
+    List<Card> getCardsBySize(String[] cardIds);
 
     void createCard(Card card);
 }
