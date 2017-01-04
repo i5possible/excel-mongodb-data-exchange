@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 
-public class model {
+public class CardTest {
     @Test
     public void shouldReturnCardStringAsExpected () {
         Card card = new Card();
