@@ -12,7 +12,7 @@ public class hello {
     }
 
     @GetMapping(path = "/hello")
-    public ResponseEntity hello () {
+    public ResponseEntity hello() {
         return ResponseEntity.status(HttpStatus.OK).body("HelloWorld");
     }
 }

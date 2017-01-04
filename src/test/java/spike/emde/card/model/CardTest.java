@@ -10,13 +10,6 @@ import java.util.List;
 import static org.junit.Assert.assertArrayEquals;
 
 public class CardTest {
-    @Test
-    public void shouldReturnCardStringAsExpected () throws ParseException {
-        Card card = getDummyCard();
-        String[] expectedStringArray = { "1","First Card","This is content.","Hong Liang, Yuchen Zhang","2017-01-04"};
-        assertArrayEquals(expectedStringArray, card.toStringArray());
-    }
-
     public static Card getDummyCard() throws ParseException {
         Card card = new Card();
         List<String> owner = new ArrayList();
@@ -28,5 +21,12 @@ public class CardTest {
         card.setAssignedTo(owner);
         card.setDueDate((new SimpleDateFormat("yyyy-mm-dd").parse("2017-01-04")));
         return card;
+    }
+
+    @Test
+    public void shouldReturnCardStringAsExpected() throws ParseException {
+        Card card = getDummyCard();
+        String[] expectedStringArray = {"1", "First Card", "This is content.", "Hong Liang, Yuchen Zhang", "2017-01-04"};
+        assertArrayEquals(expectedStringArray, card.toStringArray());
     }
 }

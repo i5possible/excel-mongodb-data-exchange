@@ -12,7 +12,7 @@ import spike.emde.ExcelMongoDataExchangeApplication;
 public class CardFunctionalTest {
     // TODO: 03/01/2017 Complete the funcitonal test.
     @Test
-    public void shouldReturnCardInfoGivenId () {
+    public void shouldReturnCardInfoGivenId() {
         String cardId = "586607261f719b619c8ad42b";
     }
 }

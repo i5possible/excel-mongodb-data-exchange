@@ -16,13 +16,13 @@ public class CardUtilsTest {
         //then
         String[][] expected = {
                 {
-                        "id","brief","content","assignedTo","dueDate"
+                        "id", "brief", "content", "assignedTo", "dueDate"
                 },
                 {
-                        "1","First Card","This is content.","Hong Liang, Yuchen Zhang","2017-01-04"
+                        "1", "First Card", "This is content.", "Hong Liang, Yuchen Zhang", "2017-01-04"
                 }
         };
-        assertArrayEquals(expected,actual);
+        assertArrayEquals(expected, actual);
     }
 
 }

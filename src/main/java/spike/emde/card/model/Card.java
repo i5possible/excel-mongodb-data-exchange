@@ -66,13 +66,13 @@ public class Card {
         return assignedTo;
     }
 
-    public String getAssignedToString() {
-        return assignedTo == null ? MyConstant.empty :
-                String.join(", ",assignedTo.toArray(new String[assignedTo.size()]));
-    }
-
     public void setAssignedTo(List<String> assignedTo) {
         this.assignedTo = assignedTo;
+    }
+
+    public String getAssignedToString() {
+        return assignedTo == null ? MyConstant.empty :
+                String.join(", ", assignedTo.toArray(new String[assignedTo.size()]));
     }
 
 //    public String getPriority() {
@@ -87,12 +87,12 @@ public class Card {
         return dueDate;
     }
 
-    public String getDueDateString() {
-        return dueDate == null ? MyConstant.empty : new SimpleDateFormat("yyyy-mm-dd").format(dueDate);
-    }
-
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public String getDueDateString() {
+        return dueDate == null ? MyConstant.empty : new SimpleDateFormat("yyyy-mm-dd").format(dueDate);
     }
 
 //    public double getEstimateHours() {

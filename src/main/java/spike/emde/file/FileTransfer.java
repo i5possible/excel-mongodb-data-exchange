@@ -17,8 +17,8 @@ import java.io.*;
 @RestController
 public class FileTransfer {
 
-    private final String targetPath = "src/main/resources/upload/";
     final String sourceFilePath = "download/test.pdf";
+    private final String targetPath = "src/main/resources/upload/";
     private final File sourceFile = new File("src/main/resources/download/test.pdf");
     private final File xlsxFile = new File("src/main/resources/download/firstCard.xlsx");
 

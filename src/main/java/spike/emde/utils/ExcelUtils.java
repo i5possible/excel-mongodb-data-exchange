@@ -20,7 +20,7 @@ public class ExcelUtils {
     /**
      * Assume that the content to write are String only.
      */
-    public static void WriteToExcel(String[][] content,String filePath) throws IOException {
+    public static void WriteToExcel(String[][] content, String filePath) throws IOException {
         SXSSFWorkbook sheets = new SXSSFWorkbook(100);
         int rows = content.length;
         Sheet sh = sheets.createSheet();
@@ -63,10 +63,10 @@ public class ExcelUtils {
         FileInputStream fileInputStream = new FileInputStream(file);
         XSSFWorkbook sheets = new XSSFWorkbook(fileInputStream);
         Sheet sheet = sheets.getSheetAt(0);
-        List<String[]>  bookListStringArray = new ArrayList<String[]>();
+        List<String[]> bookListStringArray = new ArrayList<String[]>();
         int firstRowNum = sheet.getFirstRowNum();
         int lastRowNum = sheet.getLastRowNum();
-        for (int rowNum = firstRowNum; rowNum <= lastRowNum;rowNum++) {
+        for (int rowNum = firstRowNum; rowNum <= lastRowNum; rowNum++) {
             Row row = sheet.getRow(rowNum);
             short lastCellNum = row.getLastCellNum();
             List<String> rowStingArray = new ArrayList<String>();

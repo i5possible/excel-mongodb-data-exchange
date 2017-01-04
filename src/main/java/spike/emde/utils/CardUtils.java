@@ -11,27 +11,27 @@ public class CardUtils {
 
     private static final String cardDir = new String("src/main/resources/card/");
 
-    public static void WriteCardToExcel (Card[] cards, String filePath) {
+    public static void WriteCardToExcel(Card[] cards, String filePath) {
         String[][] cardsInfo = convertCardsToStringArray(cards);
         try {
-            ExcelUtils.WriteToExcel(cardsInfo,filePath);
+            ExcelUtils.WriteToExcel(cardsInfo, filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static String getCardFilePathByName (String fileName) {
+    public static String getCardFilePathByName(String fileName) {
         return CardUtils.cardDir + fileName;
     }
 
-    public static String[][] convertCardsToStringArray (Card[] cards) {
+    public static String[][] convertCardsToStringArray(Card[] cards) {
         List<String[]> cardList = new ArrayList<>();
 
         Class<Card> cardClass = Card.class;
         Field[] fields = cardClass.getDeclaredFields();
 
         List<String> scheme = new ArrayList<>();
-        for (Field field: fields) {
+        for (Field field : fields) {
             scheme.add(field.getName());
         }
 
@@ -39,9 +39,10 @@ public class CardUtils {
         for (Card card : cards) {
             cardList.add(card.toStringArray());
         }
-        return  cardList.toArray(new String[cardList.size()][]);
+        return cardList.toArray(new String[cardList.size()][]);
     }
-    public static String[][] convertCardsToStringArray (Card card) {
+
+    public static String[][] convertCardsToStringArray(Card card) {
         Card[] cards = {card};
         return convertCardsToStringArray(cards);
     }
