@@ -2,6 +2,7 @@ package spike.emde.file;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,26 +45,12 @@ public class FileTransfer {
     }
 
     @GetMapping(value = "/downloadxlsx", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    public void downloadXlsxFile(HttpServletResponse response) throws IOException {
-        response.setHeader("Content-Disposition", "attachment; filename="
-                + xlsxFile.getName());
-        InputStream inputStream = new FileInputStream(xlsxFile);
-        IOUtils.copy(inputStream, response.getOutputStream());
-        response.flushBuffer();
+    public ResponseEntity<FileSystemResource> downloadXlsxFile(HttpServletResponse response) throws IOException {
+        FileSystemResource fileSystemResource = new FileSystemResource(xlsxFile);
+        return ResponseEntity.status(HttpStatus.OK)
+                .header("Content-Disposition", "attachment; filename=\"" + xlsxFile.getName() + "\"")
+                .body(fileSystemResource);
     }
-
-    /**
-     * This method is trying to return the file directly.
-     * , produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-     *
-     * @return
-     */
-//    @GetMapping(value = "/download", produces = "application/pdf")
-//    public @ResponseBody ResponseEntity download() {
-//        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_PDF)
-//                .header("Content-Disposition", "attachment; filename=\"" +
-//                        sourceFile.getName() + "\"").body(sourceFile);
-//    }
 
     @PostMapping(value = "/upload")
     public ResponseEntity upload(@RequestParam(value = "uploadFile") MultipartFile uploadFile) throws IOException {
