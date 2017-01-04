@@ -11,8 +11,7 @@ public class CardUtils {
 
     private static final String cardDir = new String("src/main/resources/card/");
 
-    public static void WriteCardToExcel (Card card, String filePath) {
-        Card[] cards = {card};
+    public static void WriteCardToExcel (Card[] cards, String filePath) {
         String[][] cardsInfo = convertCardsToStringArray(cards);
         try {
             ExcelUtils.WriteToExcel(cardsInfo,filePath);

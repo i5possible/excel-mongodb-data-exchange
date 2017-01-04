@@ -36,8 +36,9 @@ public class CardController {
     @GetMapping(value = "card/export/{cardId}", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     public ResponseEntity getCardExcel(@PathVariable(value = "cardId") String cardId) {
         Card card = cardServices.getCard(cardId).get();
+        Card[] cards = {card};
         String filePath = CardUtils.getCardFilePathByName("firstCard.xlsx");
-        CardUtils.WriteCardToExcel(card, filePath);
+        CardUtils.WriteCardToExcel(cards, filePath);
         File exportFile = new File(filePath);
         FileSystemResource fileSystemResource = new FileSystemResource(exportFile);
         return ResponseEntity.status(HttpStatus.OK)
