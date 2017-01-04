@@ -32,7 +32,9 @@ public class ExcelUtils {
                 cell.setCellValue(content[rowNum][cellNum]);
             }
         }
-        FileOutputStream out = new FileOutputStream(new File(filePath));
+        File file = new File(filePath);
+        file.deleteOnExit();
+        FileOutputStream out = new FileOutputStream(file);
         sheets.write(out);
         out.close();
         sheets.dispose();
