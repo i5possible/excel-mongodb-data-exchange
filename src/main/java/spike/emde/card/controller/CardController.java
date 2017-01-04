@@ -1,6 +1,7 @@
 package spike.emde.card.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import spike.emde.card.service.CardServices;
 import spike.emde.utils.CardUtils;
 
 import javax.validation.Valid;
+import java.io.File;
 
 @RestController
 public class CardController {
@@ -38,7 +40,11 @@ public class CardController {
         Send the excel file to eh user.
          */
         Card card = cardServices.getCard(cardId).get();
-        CardUtils.WriteCardToExcel(card, CardUtils.getCardFilePathByName("firstCard.xlsx"));
-        return ResponseEntity.ok().build();
+        String filePath = CardUtils.getCardFilePathByName("firstCard.xlsx");
+        CardUtils.WriteCardToExcel(card, filePath);
+        File exportFile = new File(filePath);
+
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header("Content-Disposition", "attachment; filename=\"" + exportFile.getName() + "\"").body(exportFile);
     }
 }
