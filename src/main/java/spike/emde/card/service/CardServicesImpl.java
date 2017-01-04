@@ -21,6 +21,11 @@ public class CardServicesImpl implements CardServices {
     }
 
     @Override
+    public Card[] getCards(String[] cardIds) {
+        return new Card[0];
+    }
+
+    @Override
     public void createCard(Card card) {
         cardRepository.save(card);
     }
