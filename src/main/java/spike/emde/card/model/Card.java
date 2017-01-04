@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import spike.emde.utils.MyConstant;
 
 import javax.validation.constraints.NotNull;
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -27,7 +26,7 @@ public class Card {
 
 //    private String priority;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd")
     private Date dueDate;
 
 //    private double estimateHours;
@@ -69,7 +68,7 @@ public class Card {
 
     public String getAssignedToString() {
         return assignedTo == null ? MyConstant.empty :
-                String.join(",",assignedTo.toArray(new String[assignedTo.size()]));
+                String.join(", ",assignedTo.toArray(new String[assignedTo.size()]));
     }
 
     public void setAssignedTo(List<String> assignedTo) {
@@ -148,13 +147,5 @@ public class Card {
 //        map.put("size", size);
 
         return map;
-    }
-
-    public static void main(String[] args) {
-        Class<Card> cardClass = Card.class;
-        Field[] declaredFields = cardClass.getDeclaredFields();
-        for (int i = 0; i < declaredFields.length; i++) {
-            System.out.println(declaredFields[i].getName());
-        }
     }
 }
