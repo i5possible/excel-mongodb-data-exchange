@@ -44,6 +44,13 @@ public class FileTransfer {
 
     }
 
+    @GetMapping(value = "/downloadxlsxerror", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    public ResponseEntity downloadXlsxError(HttpServletResponse response) throws IOException {
+        return ResponseEntity.status(HttpStatus.OK)
+                .header("Content-Disposition", "attachment; filename=\"" + xlsxFile.getName() + "\"")
+                .body(xlsxFile);
+    }
+
     @GetMapping(value = "/downloadxlsx", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     public ResponseEntity<FileSystemResource> downloadXlsxFile(HttpServletResponse response) throws IOException {
         FileSystemResource fileSystemResource = new FileSystemResource(xlsxFile);
