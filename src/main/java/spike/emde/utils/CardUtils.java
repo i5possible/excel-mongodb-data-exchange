@@ -41,4 +41,8 @@ public class CardUtils {
         }
         return  cardList.toArray(new String[cardList.size()][]);
     }
+    public static String[][] convertCardsToStringArray (Card card) {
+        Card[] cards = {card};
+        return convertCardsToStringArray(cards);
+    }
 }
