@@ -3,7 +3,12 @@ package spike.emde.utils;
 import org.junit.Test;
 import spike.emde.card.model.Card;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static spike.emde.card.model.CardTest.getDummyCard;
 
 public class CardUtilsTest {
@@ -25,4 +30,15 @@ public class CardUtilsTest {
         assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void convertStringArrayToCards () {
+        String path = "cards.xlsx";
+        List<Card> cardList = new ArrayList<>();
+        try {
+            cardList = CardUtils.convertStringArrayToCards(ExcelUtils.ReadFromExcel(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertEquals(2,cardList.size());
+    }
 }
