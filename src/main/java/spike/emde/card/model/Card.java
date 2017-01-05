@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import spike.emde.utils.MyConstant;
 
 import javax.validation.constraints.NotNull;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -148,5 +149,18 @@ public class Card {
         map.put("size", size);
 
         return map;
+    }
+
+    public Card() {
+
+    }
+
+    public Card(Map<String, String> cardMap) throws ParseException {
+        this.id = cardMap.get("id");
+        this.brief = cardMap.get("brief");
+        this.content = cardMap.get("content");
+        this.assignedTo = Arrays.asList(cardMap.get("assignedTo"));
+        this.dueDate = new SimpleDateFormat("yyyy-mmm-dd").parse(cardMap.get("dueDate"));
+        this.size = cardMap.get("size");
     }
 }
