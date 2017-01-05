@@ -62,7 +62,7 @@ public class CardController {
         }
     }
 
-    @PostMapping(value = "card/import/", consumes = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    @PostMapping(value = "card/import", consumes = "multipart/form-data")
     public ResponseEntity importCard(@PathVariable(value = "file") MultipartFile file) {
         cardServices.importCardFromExcel(file);
         return ResponseEntity.accepted().body("");

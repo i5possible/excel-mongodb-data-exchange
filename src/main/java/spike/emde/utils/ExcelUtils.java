@@ -64,13 +64,13 @@ public class ExcelUtils {
     public static String[][] ReadFromInputStream(InputStream inputStream) throws IOException {
         XSSFWorkbook sheets = new XSSFWorkbook(inputStream);
         Sheet sheet = sheets.getSheetAt(0);
-        List<String[]> bookListStringArray = new ArrayList<String[]>();
+        List<String[]> bookListStringArray = new ArrayList<>();
         int firstRowNum = sheet.getFirstRowNum();
         int lastRowNum = sheet.getLastRowNum();
         for (int rowNum = firstRowNum; rowNum <= lastRowNum; rowNum++) {
             Row row = sheet.getRow(rowNum);
             short lastCellNum = row.getLastCellNum();
-            List<String> rowStingArray = new ArrayList<String>();
+            List<String> rowStingArray = new ArrayList<>();
             for (int columnNum = 0; columnNum < lastCellNum; columnNum++) {
                 Cell cell = row.getCell(columnNum);
                 rowStingArray.add(cell.getStringCellValue());
@@ -78,6 +78,7 @@ public class ExcelUtils {
             System.out.println(rowStingArray.toString());
             bookListStringArray.add(rowStingArray.toArray(new String[0]));
         }
+        sheets.close();
         return bookListStringArray.toArray(new String[0][0]);
     }
 
