@@ -1,18 +1,19 @@
 package spike.emde.card.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import spike.emde.card.model.Card;
 import spike.emde.card.repository.CardRepository;
+import spike.emde.utils.CardUtils;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CardServices implements CardServices {
+public class CardServices {
     private CardRepository cardRepository;
 
-    @Autowired
     public CardServices(CardRepository cardRepository) {
         this.cardRepository = cardRepository;
     }
@@ -21,14 +22,19 @@ public class CardServices implements CardServices {
         return Optional.ofNullable(cardRepository.findOne(cardId));
     }
 
-    @Override
     public List<Card> getCardsBySize(String size) {
         List<Card> cards = cardRepository.FindBySize(size);
         return cards;
     }
 
-    @Override
     public void createCard(Card card) {
         cardRepository.save(card);
+    }
+
+    public FileSystemResource getCardFileResource (String cardId) {
+        Card[] cards = {getCard(cardId).get()};
+        String filePath = CardUtils.getCardFilePathByName("firstCard.xlsx");
+        CardUtils.WriteCardToExcel(cards, filePath);
+        return new FileSystemResource(new File(filePath));
     }
 }
