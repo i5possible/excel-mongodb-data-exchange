@@ -44,6 +44,13 @@ public class FileTransfer {
 
     }
 
+    /**
+     * This method ISN'T WORK, I just leave it here.
+     * The reason is that the ResponseRender use "application/octet_stream" to process the body.
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @GetMapping(value = "/downloadxlsxerror", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     public ResponseEntity downloadXlsxError(HttpServletResponse response) throws IOException {
         return ResponseEntity.status(HttpStatus.OK)
@@ -51,6 +58,12 @@ public class FileTransfer {
                 .body(xlsxFile);
     }
 
+    /**
+     * This method use FileSystemResource to complete the download. it's simple to write and easy to read.
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @GetMapping(value = "/downloadxlsx", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     public ResponseEntity<FileSystemResource> downloadXlsxFile(HttpServletResponse response) throws IOException {
         FileSystemResource fileSystemResource = new FileSystemResource(xlsxFile);
@@ -59,11 +72,17 @@ public class FileTransfer {
                 .body(fileSystemResource);
     }
 
+    /**
+     * This method use stream directly to deal with the file. There must be a better way to complete it.
+     * @param uploadFile
+     * @return
+     * @throws IOException
+     */
     @PostMapping(value = "/upload")
     public ResponseEntity upload(@RequestParam(value = "uploadFile") MultipartFile uploadFile) throws IOException {
         InputStream inputStream = uploadFile.getInputStream();
         File file = new File(targetPath + uploadFile.getOriginalFilename());
-        file.deleteOnExit();
+//        file.deleteOnExit();
         if (file.exists()) {
             inputStream.close();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This sourceFile already exist.");
