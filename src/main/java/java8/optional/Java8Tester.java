@@ -8,8 +8,17 @@ public class Java8Tester {
         Integer value1 = null;
         Integer value2 = new Integer(10);
 
+        Optional.of(value1);
+        Optional.ofNullable(value1);
+        Optional.empty();
+
         //Optional.ofNullable - allows passed parameter to be null.
         Optional<Integer> a = Optional.ofNullable(value1);
+        a.orElse(new Integer(0));
+        a.isPresent();
+//        a.map();
+//        a.filter();
+//        a.flatMap()
 
         //Optional.of - throws NullPointerException if passed parameter is null
         Optional<Integer> b = Optional.of(value2);
