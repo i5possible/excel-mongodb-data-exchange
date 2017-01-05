@@ -38,7 +38,14 @@ public class CardController {
     @GetMapping(value = "card/export/{cardId}", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     public ResponseEntity getCardExcel(@PathVariable(value = "cardId") String cardId) {
         return ResponseEntity.status(HttpStatus.OK)
-                .header("Content-Disposition", "attachment; filename=\"" + cardId + "\"")
+                .header("Content-Disposition", "attachment; filename=\"" + cardId + ".xlsx\"")
                 .body(cardServices.getCardFileResource(cardId));
+    }
+
+    @GetMapping(value = "card/exportBySize/{size}", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    public ResponseEntity getCardExcelBySize(@PathVariable(value = "size") String size) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .header("Content-Disposition", "attachment; filename=\"" + size + ".xlsx\"")
+                .body(cardServices.getCardFileResourceBySize(size));
     }
 }

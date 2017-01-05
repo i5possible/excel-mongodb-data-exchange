@@ -33,8 +33,19 @@ public class CardServices {
 
     public FileSystemResource getCardFileResource (String cardId) {
         Card[] cards = {getCard(cardId).get()};
-        String filePath = CardUtils.getCardFilePathByName("firstCard.xlsx");
+        return getFileSystemResource(cards);
+    }
+
+    public FileSystemResource getCardFileResourceBySize (String size) {
+        List<Card> cardsBySize = getCardsBySize(size);
+        Card[] cards = cardsBySize.toArray(new Card[cardsBySize.size()]);
+        return getFileSystemResource(cards);
+    }
+
+    private FileSystemResource getFileSystemResource(Card[] cards) {
+        String filePath = CardUtils.getCardFilePathByName("cards.xlsx");
         CardUtils.WriteCardToExcel(cards, filePath);
         return new FileSystemResource(new File(filePath));
     }
+
 }
