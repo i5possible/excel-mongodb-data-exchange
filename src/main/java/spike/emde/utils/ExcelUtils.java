@@ -7,10 +7,7 @@ import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +58,11 @@ public class ExcelUtils {
     public static String[][] ReadFromExcel(String fileName) throws IOException {
         File file = new File(excelSourcePath + fileName);
         FileInputStream fileInputStream = new FileInputStream(file);
-        XSSFWorkbook sheets = new XSSFWorkbook(fileInputStream);
+        return ReadFromInputStream(fileInputStream);
+    }
+
+    public static String[][] ReadFromInputStream(InputStream inputStream) throws IOException {
+        XSSFWorkbook sheets = new XSSFWorkbook(inputStream);
         Sheet sheet = sheets.getSheetAt(0);
         List<String[]> bookListStringArray = new ArrayList<String[]>();
         int firstRowNum = sheet.getFirstRowNum();
