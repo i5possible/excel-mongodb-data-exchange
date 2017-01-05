@@ -24,12 +24,10 @@ public class CardController {
         return ResponseEntity.ok(cardServices.getCard(cardId).get());
     }
 
-    @GetMapping(value = "/card/get/{size}")
+    @GetMapping(value = "/card/getBySize/{size}")
     public ResponseEntity getCardBySize(@PathVariable(value = "size") String size) {
         return ResponseEntity.ok(cardServices.getCardsBySize(size));
     }
-
-
 
     @PostMapping(value = "/card", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createCard(@RequestBody @Valid Card card) {

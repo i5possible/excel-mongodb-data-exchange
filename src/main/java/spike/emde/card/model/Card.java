@@ -32,8 +32,8 @@ public class Card {
 //    private double estimateHours;
 //
 //    private String classOfServices;
-//
-//    private String size;
+
+    private String size;
 
     // This member is to test the JsonInclude.
     //private String unused;
@@ -111,13 +111,14 @@ public class Card {
 //        this.classOfServices = classOfServices;
 //    }
 //
-//    public String getSize() {
-//        return size;
-//    }
-//
-//    public void setSize(String size) {
-//        this.size = size;
-//    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
 
     public String[] toStringArray() {
         List<String> list = new ArrayList<>();
@@ -129,7 +130,7 @@ public class Card {
         list.add(getDueDateString());
 //        list.add("" + estimateHours);
 //        list.add(classOfServices);
-//        list.add(size);
+        list.add(size);
 
         return list.toArray(new String[list.size()]);
     }
@@ -144,7 +145,7 @@ public class Card {
         map.put("dueDate", getDueDateString());
 //        map.put("estimateHours", "" + estimateHours);
 //        map.put("classOfServices", classOfServices);
-//        map.put("size", size);
+        map.put("size", size);
 
         return map;
     }

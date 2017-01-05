@@ -23,7 +23,7 @@ public class CardServices {
     }
 
     public List<Card> getCardsBySize(String size) {
-        List<Card> cards = cardRepository.FindBySize(size);
+        List<Card> cards = cardRepository.findBySize(size);
         return cards;
     }
 
