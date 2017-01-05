@@ -29,6 +29,7 @@ targetCompatibility = 1.8
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     compile "org.springframework.data:spring-data-mongodb:1.9.5.RELEASE"
+    compile "org.modelmapper:modelmapper:0.3.5"
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     compile "org.apache.poi:poi:${poiVersion}"
     compile "org.apache.poi:poi-ooxml:${poiVersion}"
