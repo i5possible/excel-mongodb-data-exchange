@@ -4,8 +4,11 @@ import spike.emde.card.model.Card;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CardUtils {
 
@@ -45,5 +48,26 @@ public class CardUtils {
     public static String[][] convertCardsToStringArray(Card card) {
         Card[] cards = {card};
         return convertCardsToStringArray(cards);
+    }
+
+    public static List<Card> convertStringArrayToCards(String[][] strings) {
+        int rowLen = strings.length;
+        String[] schema = strings[0];
+        List<Card> cardList = new ArrayList<>();
+        int columnLen = schema.length;
+        for (int i = 1; i < rowLen; i++) {
+            String[] string = strings[i];
+            Map<String, String> map = new HashMap<>();
+            for (int j = 0; j < columnLen; j++) {
+                map.put(schema[j], string[j]);
+            }
+            try {
+                Card card = new Card(map);
+                cardList.add(card);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return cardList;
     }
 }
