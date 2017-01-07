@@ -73,6 +73,35 @@ public class CardExport {
         }
     }
 
+
+    public String getId() {
+        return id;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public static List<String> getScheme() {
+        return scheme;
+    }
+
     @Override
     public String toString() {
         Map<String, String> map = this.toMap();
