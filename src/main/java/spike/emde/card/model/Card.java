@@ -7,6 +7,7 @@ import spike.emde.utils.MyConstant;
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
@@ -28,7 +29,7 @@ public class Card {
 //    private String priority;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd")
-    private Date dueDate;
+    private LocalDate dueDate;
 
 //    private double estimateHours;
 //
@@ -84,11 +85,11 @@ public class Card {
 //        this.priority = priority;
 //    }
 
-    public Date getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -160,7 +161,7 @@ public class Card {
         this.brief = cardMap.get("brief");
         this.content = cardMap.get("content");
         this.assignedTo = Arrays.asList(cardMap.get("assignedTo"));
-        this.dueDate = new SimpleDateFormat("yyyy-mmm-dd").parse(cardMap.get("dueDate"));
+        this.dueDate = LocalDate.parse(cardMap.get("dueDate"));
         this.size = cardMap.get("size");
     }
 }

@@ -3,7 +3,7 @@ package spike.emde.card.model;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class CardTest {
         card.setBrief("First Card");
         card.setContent("This is content.");
         card.setAssignedTo(owner);
-        card.setDueDate((new SimpleDateFormat("yyyy-mm-dd").parse("2017-01-04")));
+        card.setDueDate(LocalDate.of(2017,1,4));
         return card;
     }
 
