@@ -11,29 +11,23 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class CardExportTest {
-    private CardExport myCard;
+    private CardExport completeCardExport;
+    private CardExport simplestCardExport;
 
     @Before
     public void setUp() throws Exception {
-        myCard = new CardExport.Builder()
+        completeCardExport = new CardExport.Builder()
                 .setId("001")
                 .setBrief("This is brief")
                 .setContent("This is content")
                 .setAssignedTo(Arrays.asList("HL", "YCZ"))
                 .setDueDate(LocalDate.of(2017, 1, 17))
-                .setSize("S").build();
-    }
-
-    @Test
-    public void shouldReturnCardExportAsString() {
-        String expected = "id:001\n" +
-                "brief:This is brief\n" +
-                "content:This is content\n" +
-                "assignedTo:HL, YCZ\n" +
-                "dueDate:2017-01-17\n" +
-                "size:S";
-        String actual = myCard.toString();
-        assertEquals(expected, actual);
+                .setSize("S")
+                .build();
+        simplestCardExport = new CardExport.Builder()
+                .setId("002")
+                .setSize("M")
+                .build();
     }
 
     @Test
@@ -45,8 +39,41 @@ public class CardExportTest {
         expected.add("HL, YCZ");
         expected.add("2017-01-17");
         expected.add("S");
-
-        List<String> actual = myCard.toList();
+        List<String> actual = completeCardExport.toList();
         assertEquals(expected,actual);
+    }
+
+    @Test
+    public void shouldReturnCardExportAsString() {
+        String expected = "id:001\n" +
+                "brief:This is brief\n" +
+                "content:This is content\n" +
+                "assignedTo:HL, YCZ\n" +
+                "dueDate:2017-01-17\n" +
+                "size:S";
+        String actual = completeCardExport.toString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void shouldReturnFullListWithEmptyProperties () {
+        List<String> expected = new ArrayList<>();
+        expected.add("002");
+        expected.add("");
+        expected.add("");
+        expected.add("");
+        expected.add("");
+        expected.add("M");
+        List<String> actual = simplestCardExport.toList();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    public void shouldReturnCardExportAsStringWithoutEmptyProperties () {
+        String expected = "id:002\n" +
+                "size:M";
+        String actual = simplestCardExport.toString();
+        assertEquals(expected, actual);
     }
 }
