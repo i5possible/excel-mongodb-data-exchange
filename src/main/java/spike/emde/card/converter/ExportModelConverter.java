@@ -1,4 +1,4 @@
-package spike.emde.card.service;
+package spike.emde.card.converter;
 
 import spike.emde.card.model.Card;
 import spike.emde.card.model.CardExport;

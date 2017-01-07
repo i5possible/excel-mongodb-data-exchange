@@ -1,13 +1,11 @@
 package spike.emde.card.adapter;
 
 import org.springframework.core.io.FileSystemResource;
-
-import java.io.File;
-import java.util.List;
+import spike.emde.card.model.CardExport;
 
 public class ExcelAdapter implements FileAdapter {
     @Override
-    public FileSystemResource write(List<String> content, File path) {
+    public FileSystemResource write(CardExport cardExport) {
         return null;
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.core.io.FileSystemResource;
 import spike.emde.card.adapter.FileAdapter;
 import spike.emde.card.model.Card;
 import spike.emde.card.repository.CardRepository;
+import spike.emde.card.converter.ExportModelConverter;
 
 import java.util.Optional;
 
