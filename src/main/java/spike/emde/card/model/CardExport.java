@@ -3,10 +3,8 @@ package spike.emde.card.model;
 import spike.emde.utils.MyConstant;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CardExport {
     private final String id;
@@ -32,12 +30,12 @@ public class CardExport {
     }
 
     public static class Builder {
-        private String id;
-        private String brief;
-        private String content;
-        private String assignedTo;
-        private String dueDate;
-        private String size;
+        private String id = "";
+        private String brief = "";
+        private String content = "";
+        private String assignedTo = "";
+        private String dueDate = "";
+        private String size = "";
 
         public Builder setId(String id) {
             this.id = id;
@@ -77,16 +75,11 @@ public class CardExport {
 
     @Override
     public String toString() {
-        ListIterator<String> schemeIterator = scheme.listIterator();
-        ListIterator<String> cardExportIterator = this.toList().listIterator();
-        StringBuilder stringBuilder = new StringBuilder();
-        while (schemeIterator.hasNext() && cardExportIterator.hasNext()) {
-            stringBuilder.append(schemeIterator.next()).append(":").append(cardExportIterator.next());
-            if (schemeIterator.hasNext()) {
-                stringBuilder.append("\n");
-            }
-        }
-        return stringBuilder.toString();
+        Map<String, String> map = this.toMap();
+        return scheme.stream()
+                .filter(string -> !map.get(string).isEmpty())
+                .map(string -> string+ ":" + map.get(string))
+                .collect(Collectors.joining("\n"));
     }
 
     public List<String> toList() {
@@ -98,5 +91,15 @@ public class CardExport {
         arrayList.add(dueDate);
         arrayList.add(size);
         return arrayList;
+    }
+
+    public Map<String, String> toMap() {
+        Map<String, String> map = new HashMap<>();
+        ListIterator<String> schemeIterator = scheme.listIterator();
+        ListIterator<String> cardExportIterator = this.toList().listIterator();
+        while (schemeIterator.hasNext() && cardExportIterator.hasNext()) {
+            map.put(schemeIterator.next(), cardExportIterator.next());
+        }
+        return map;
     }
 }
