@@ -39,15 +39,10 @@ public class CardController {
     }
 
     @GetMapping(value = "card/export/{cardId}", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    public ResponseEntity getCardExcel(@PathVariable(value = "cardId") String cardId) {
-        Optional<FileSystemResource> cardFileResource = cardServices.getCardFileResource(cardId);
-        if (cardFileResource.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .header("Content-Disposition", "attachment; filename=\"" + cardId + ".xlsx\"")
-                    .body(cardFileResource.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity exportCardToExcel(@PathVariable(value = "cardId") String cardId) {
+        Optional<FileSystemResource> cardFileResource = cardServices.exportCardToExcel(cardId);
+
+        return cardFileResource.map(this::buildExportResponse).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping(value = "card/exportBySize/{size}", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -60,6 +55,13 @@ public class CardController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    private ResponseEntity buildExportResponse(FileSystemResource file) {
+        ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.OK)
+                .header("Content-Disposition", "attachment; filename=\"" + file.getFilename() + ".xlsx\"")
+                .body(file);
     }
 
     @PostMapping(value = "card/import", consumes = "multipart/form-data")
