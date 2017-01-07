@@ -36,14 +36,8 @@ public class CardServices {
         cardRepository.save(card);
     }
 
-    public Optional<FileSystemResource> getCardFileResource (String cardId) {
-        Optional<Card> card = getCard(cardId);
-        if (card.isPresent()) {
-            Card[] cards = {card.get()};
-            return Optional.of(getFileSystemResource(cards));
-        } else {
-            return Optional.empty();
-        }
+    public Optional<FileSystemResource> exportCardToExcel(String cardId) {
+        return getCard(cardId).map(this::getFileSystemResource);
     }
 
     public Optional<FileSystemResource> getCardFileResourceBySize (String size) {
@@ -56,9 +50,9 @@ public class CardServices {
         }
     }
 
-    private FileSystemResource getFileSystemResource(Card[] cards) {
+    private FileSystemResource getFileSystemResource(Card... cards) {
         String filePath = CardUtils.getCardFilePathByName("cards.xlsx");
-        CardUtils.WriteCardToExcel(cards, filePath);
+        CardUtils.writeCardsToExcel(filePath, cards);
         return new FileSystemResource(new File(filePath));
     }
 
