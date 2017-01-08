@@ -1,8 +1,10 @@
 package spike.emde.card.adapter;
 
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import spike.emde.card.model.CardExport;
 
+import java.util.Optional;
+
 public interface FileAdapter {
-    FileSystemResource write(CardExport cardExport);
+    Optional<Resource> write(CardExport... cardExport);
 }

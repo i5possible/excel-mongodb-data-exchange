@@ -17,18 +17,11 @@ public class ExcelUtils {
     /**
      * Assume that the content to write are String only.
      */
-    public static void WriteToExcel(String[][] content, String filePath) throws IOException {
+    public static void WriteToExcel(String filePath, List<List<String>> content) throws IOException {
         SXSSFWorkbook sheets = new SXSSFWorkbook(100);
-        int rows = content.length;
-        Sheet sh = sheets.createSheet();
-        for (int rowNum = 0; rowNum < rows; rowNum++) {
-            Row row = sh.createRow(rowNum);
-            int cellLength = content[rowNum].length;
-            for (int cellNum = 0; cellNum < cellLength; cellNum++) {
-                Cell cell = row.createCell(cellNum);
-                cell.setCellValue(content[rowNum][cellNum]);
-            }
-        }
+        int rows = content.size();
+        Sheet sheet = sheets.createSheet();
+        WriteToSheet(sheet, content);
         File file = new File(filePath);
         file.deleteOnExit();
         FileOutputStream out = new FileOutputStream(file);
@@ -37,6 +30,17 @@ public class ExcelUtils {
         sheets.dispose();
     }
 
+    public static void WriteToSheet(Sheet sheet, List<List<String>> content) {
+        int rows = content.size();
+        for (int rowNum = 0; rowNum < rows; rowNum++) {
+            Row row = sheet.createRow(rowNum);
+            int cellLength = content.get(rowNum).size();
+            for (int cellNum = 0; cellNum < cellLength; cellNum++) {
+                Cell cell = row.createCell(cellNum);
+                cell.setCellValue(content.get(rowNum).get(cellNum));
+            }
+        }
+    }
 
     public static void WriteAddressToExcel(String fileName) throws IOException {
         SXSSFWorkbook wb = new SXSSFWorkbook(100);
