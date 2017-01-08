@@ -17,7 +17,7 @@ public class CardUtils {
     public static void writeCardsToExcel(String filePath, Card... cards) {
         String[][] cardsInfo = convertCardsToStringArray(cards);
         try {
-            ExcelUtils.WriteToExcel(cardsInfo, filePath);
+            ExcelUtils.writeToExcel(cardsInfo, filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }

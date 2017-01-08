@@ -12,7 +12,7 @@ public class ExcelUtilsTest {
     @Test
     public void shouldReturn3RowsAnd4ColumnStringArray() throws IOException {
         String fileName = "HelloWorld.xlsx";
-        String[][] strings = ExcelUtils.ReadFromExcel(fileName);
+        String[][] strings = ExcelUtils.readFromExcel(fileName);
         String[][] expectedStrings = {
                 {"A1", "B1", "C1", "D1"},
                 {"A2", "B2", "C2", "D2"},

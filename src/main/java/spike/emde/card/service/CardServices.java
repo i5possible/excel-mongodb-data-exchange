@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
-import static spike.emde.utils.ExcelUtils.ReadFromInputStream;
+import static spike.emde.utils.ExcelUtils.readFromInputStream;
 
 @Service
 public class CardServices {
@@ -58,7 +58,7 @@ public class CardServices {
     public void importCardFromExcel (MultipartFile file) {
         try {
             InputStream inputStream = file.getInputStream();
-            String[][] strings = ReadFromInputStream(inputStream);
+            String[][] strings = readFromInputStream(inputStream);
             List<Card> cardList = CardUtils.convertStringArrayToCards(strings);
             cardList.stream().forEach(cardRepository::save);
         } catch (IOException e) {

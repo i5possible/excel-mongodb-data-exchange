@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static spike.emde.utils.ExcelUtils.WriteToSheet;
+import static spike.emde.utils.ExcelUtils.writeToSheet;
 
 public class ExcelAdapter implements FileAdapter {
     @Override
@@ -32,7 +32,7 @@ public class ExcelAdapter implements FileAdapter {
     public Resource getSXSSFWorkbookResource(List<List<String>> content) {
         SXSSFWorkbook sheets = new SXSSFWorkbook(100);
         Sheet sheet = sheets.createSheet();
-        WriteToSheet(sheet, content);
+        writeToSheet(sheet, content);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
             sheets.write(byteArrayOutputStream);

@@ -35,7 +35,7 @@ public class CardUtilsTest {
         String path = "cards.xlsx";
         List<Card> cardList = new ArrayList<>();
         try {
-            cardList = CardUtils.convertStringArrayToCards(ExcelUtils.ReadFromExcel(path));
+            cardList = CardUtils.convertStringArrayToCards(ExcelUtils.readFromExcel(path));
         } catch (IOException e) {
             e.printStackTrace();
         }

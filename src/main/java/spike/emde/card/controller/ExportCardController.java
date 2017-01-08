@@ -33,7 +33,7 @@ public class ExportCardController {
             return ResponseEntity.notFound().build();
         }
     }*/
-    
+
     private ResponseEntity buildExportResponse(Resource resource) {
         return ResponseEntity.status(HttpStatus.OK)
                 .header("Content-Disposition", "attachment; filename=\"" + resource.getFilename() + ".xlsx\"")
