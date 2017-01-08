@@ -1,8 +1,6 @@
 package spike.emde.card.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +9,6 @@ import spike.emde.card.model.Card;
 import spike.emde.card.service.CardServices;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 public class CardController {
@@ -36,32 +33,6 @@ public class CardController {
     public ResponseEntity createCard(@RequestBody @Valid Card card) {
         cardServices.createCard(card);
         return ResponseEntity.accepted().build();
-    }
-
-    @GetMapping(value = "card/export/{cardId}", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    public ResponseEntity exportCardToExcel(@PathVariable(value = "cardId") String cardId) {
-        Optional<FileSystemResource> cardFileResource = cardServices.exportCardToExcel(cardId);
-
-        return cardFileResource.map(this::buildExportResponse).orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping(value = "card/exportBySize/{size}", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    public ResponseEntity getCardExcelBySize(@PathVariable(value = "size") String size) {
-        Optional<FileSystemResource> cardFileResourceBySize = cardServices.getCardFileResourceBySize(size);
-        if (cardFileResourceBySize.isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .header("Content-Disposition", "attachment; filename=\"" + size + ".xlsx\"")
-                    .body(cardFileResourceBySize.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    private ResponseEntity buildExportResponse(FileSystemResource file) {
-        ResponseEntity.notFound().build();
-        return ResponseEntity.status(HttpStatus.OK)
-                .header("Content-Disposition", "attachment; filename=\"" + file.getFilename() + ".xlsx\"")
-                .body(file);
     }
 
     @PostMapping(value = "card/import", consumes = "multipart/form-data")
