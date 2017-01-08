@@ -10,7 +10,8 @@ import java.util.List;
 import static org.junit.Assert.assertArrayEquals;
 
 public class CardTest {
-    public static Card getDummyCard() throws ParseException {
+
+    public static Card getDummyCard() {
         Card card = new Card();
         List<String> owner = new ArrayList();
         owner.add("Hong Liang");

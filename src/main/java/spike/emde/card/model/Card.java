@@ -6,7 +6,6 @@ import spike.emde.utils.MyConstant;
 
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -94,7 +93,7 @@ public class Card {
     }
 
     public String getDueDateString() {
-        return dueDate == null ? MyConstant.empty : new SimpleDateFormat("yyyy-mm-dd").format(dueDate);
+        return dueDate == null ? MyConstant.empty : dueDate.toString();
     }
 
 //    public double getEstimateHours() {
