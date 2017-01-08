@@ -5,6 +5,7 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 import spike.emde.card.model.CardExport;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 import static spike.emde.utils.ExcelUtils.writeToSheet;
 
+@Component
 public class ExcelAdapter implements FileAdapter {
     @Override
     public Optional<Resource> write(CardExport... cardExport) {

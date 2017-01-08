@@ -11,15 +11,15 @@ import spike.emde.card.service.ExportCardService;
 
 import java.util.Optional;
 
-@RestController(value = "/cards")
+@RestController
 public class ExportCardController {
     @Autowired
     ExportCardService exportCardService;
 
-    @GetMapping(value = "card/export/{cardId}", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    @GetMapping(value = "cards/{cardId}/export", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     public ResponseEntity exportCardToExcel(@PathVariable(value = "cardId") String cardId) {
         Optional<Resource> resource = exportCardService.exportCardToExcel(cardId);
-        return resource.map(this::buildExportResponse).orElse(ResponseEntity.notFound().build());
+        return resource.map(r ->this.buildExportResponse(r,cardId)).orElse(ResponseEntity.notFound().build());
     }
 
  /*   @GetMapping(value = "card/exportBySize/{size}", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -34,9 +34,9 @@ public class ExportCardController {
         }
     }*/
 
-    private ResponseEntity buildExportResponse(Resource resource) {
+    private ResponseEntity buildExportResponse(Resource resource, String fileName) {
         return ResponseEntity.status(HttpStatus.OK)
-                .header("Content-Disposition", "attachment; filename=\"" + resource.getFilename() + ".xlsx\"")
+                .header("Content-Disposition", "attachment; filename=\"" + fileName + ".xlsx\"")
                 .body(resource);
     }
 }
