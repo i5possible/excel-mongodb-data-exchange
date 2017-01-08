@@ -1,13 +1,11 @@
 package spike.emde.card.service;
 
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import spike.emde.card.model.Card;
 import spike.emde.card.repository.CardRepository;
 import spike.emde.utils.CardUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -36,11 +34,7 @@ public class CardServices {
         cardRepository.save(card);
     }
 
-    public Optional<FileSystemResource> exportCardToExcel(String cardId) {
-        return getCard(cardId).map(this::getFileSystemResource);
-    }
-
-    public Optional<FileSystemResource> getCardFileResourceBySize (String size) {
+/*    public Optional<FileSystemResource> getCardFileResourceBySize (String size) {
         List<Card> cardsBySize = getCardsBySize(size);
         if (cardsBySize.size() == 0) {
             return Optional.empty();
@@ -54,7 +48,7 @@ public class CardServices {
         String filePath = CardUtils.getCardFilePathByName("cards.xlsx");
         CardUtils.writeCardsToExcel(filePath, cards);
         return new FileSystemResource(new File(filePath));
-    }
+    }*/
 
     /**
      * Read the card from Excel.

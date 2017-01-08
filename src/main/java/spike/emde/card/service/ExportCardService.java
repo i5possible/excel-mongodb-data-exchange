@@ -1,9 +1,9 @@
 package spike.emde.card.service;
 
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 
 import java.util.Optional;
 
 public interface ExportCardService {
-    Optional<FileSystemResource> exportCard(String cardId);
+    Optional<Resource> exportCardToExcel(String cardId);
 }
