@@ -2,7 +2,6 @@ package spike.emde.utils;
 
 import spike.emde.card.model.Card;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -13,15 +12,6 @@ import java.util.Map;
 public class CardUtils {
 
     private static final String cardDir = new String("src/main/resources/card/");
-
-    public static void writeCardsToExcel(String filePath, Card... cards) {
-        String[][] cardsInfo = convertCardsToStringArray(cards);
-        try {
-            ExcelUtils.writeToExcel(cardsInfo, filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static String getCardFilePathByName(String fileName) {
         return CardUtils.cardDir + fileName;
