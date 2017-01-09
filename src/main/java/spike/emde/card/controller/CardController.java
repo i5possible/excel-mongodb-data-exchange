@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import spike.emde.card.model.Card;
 import spike.emde.card.service.CardServices;
 
@@ -33,11 +32,5 @@ public class CardController {
     public ResponseEntity createCard(@RequestBody @Valid Card card) {
         cardServices.createCard(card);
         return ResponseEntity.accepted().build();
-    }
-
-    @PostMapping(value = "card/import", consumes = "multipart/form-data")
-    public ResponseEntity importCard(@PathVariable(value = "file") MultipartFile file) {
-        cardServices.importCardFromExcel(file);
-        return ResponseEntity.accepted().body("");
     }
 }
