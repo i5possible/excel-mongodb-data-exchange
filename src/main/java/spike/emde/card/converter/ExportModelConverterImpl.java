@@ -8,13 +8,13 @@ import spike.emde.card.model.CardExport;
 public class ExportModelConverterImpl implements ExportModelConverter {
     @Override
     public CardExport convert(Card card) {
-        return new CardExport.Builder()
-                .setId(card.getId())
-                .setBrief(card.getBrief())
-                .setContent(card.getContent())
-                .setAssignedTo(card.getAssignedTo())
-                .setDueDate(card.getDueDate())
-                .setSize(card.getSize())
-                .build();
+        CardExport export = new CardExport();
+        export.setId(card.getId());
+        export.setBrief(card.getBrief());
+        export.setContent(card.getContent());
+        export.setAssignedTo(card.getAssignedTo());
+        export.setDueDate(card.getDueDate());
+        export.setSize(card.getId());
+        return export;
     }
 }
