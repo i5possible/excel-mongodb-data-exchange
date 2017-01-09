@@ -1,6 +1,5 @@
 package spike.emde.card.adapter;
 
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.core.io.ByteArrayResource;
@@ -33,8 +32,7 @@ public class ExcelAdapter implements FileAdapter {
 
     public Resource getSXSSFWorkbookResource(List<List<String>> content) {
         SXSSFWorkbook sheets = new SXSSFWorkbook(100);
-        Sheet sheet = sheets.createSheet();
-        writeToSheet(sheet, content);
+        writeToSheet(sheets.createSheet(), content);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
             sheets.write(byteArrayOutputStream);
