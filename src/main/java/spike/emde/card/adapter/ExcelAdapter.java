@@ -6,6 +6,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import spike.emde.card.model.CardExport;
+import spike.emde.card.model.CardImport;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +29,11 @@ public class ExcelAdapter implements FileAdapter {
         Resource resource = null;
         resource = getSXSSFWorkbookResource(content);
         return Optional.ofNullable(resource);
+    }
+
+    @Override
+    public List<CardImport> read(Resource resource) {
+        return null;
     }
 
     public Resource getSXSSFWorkbookResource(List<List<String>> content) {
