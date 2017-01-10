@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class FieldValueGetter {
-    static Object runGetter(Field field, Object o) {
+    public static Object runGetter(Field field, Object o) {
         // MZ: Find the correct method
         for (Method method : o.getClass().getMethods()) {
             if ((method.getName().startsWith("get")) && (method.getName().length() == (field.getName().length() + 3))) {
