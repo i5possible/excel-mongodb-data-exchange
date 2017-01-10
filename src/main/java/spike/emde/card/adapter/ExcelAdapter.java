@@ -12,6 +12,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import spike.emde.card.model.CardImport;
 import spike.emde.model.Exportable;
+import spike.emde.model.FieldInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class ExcelAdapter implements FileAdapter {
         List<List<String>> content = new ArrayList<>();
 //        content.add(CardExport.getSchema()); // TODO: annotation
         Arrays.asList(toExportResources).stream().map(Exportable::toList).forEach(content::add);
-        Arrays.stream(toExportResources).map(Exportable::getSchemaList);
+        Arrays.stream(toExportResources).map(Exportable::getClass).map(Exportable::getSchemaInfoList);
         // Arrays.asList(cardExport).stream().collect(groupBy)
 
         // card card people people label
@@ -51,7 +52,7 @@ public class ExcelAdapter implements FileAdapter {
         return null;
     }
 
-    private Optional<Resource> getWorkbookResource(List<List<String>> content, String description) {
+    public Optional<Resource> getWorkbookResource(List<List<String>> content, String description) {
         SXSSFWorkbook sheets = new SXSSFWorkbook(100);
         writeToSheet(sheets, content,description);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -73,6 +74,13 @@ public class ExcelAdapter implements FileAdapter {
 
     private <T extends Exportable> Workbook writeToWorkbook(List<T> toExportResource) {
         Workbook workbook = new SXSSFWorkbook(100);
+
+
+        toExportResource.stream().forEach(e -> {
+            Class<? extends Exportable> aClass = e.getClass();
+            String modelExportName = Exportable.getModelExportName(aClass);
+            List<FieldInfo> schemaInfoList = Exportable.getSchemaInfoList(aClass);
+        });
         return workbook;
     }
 

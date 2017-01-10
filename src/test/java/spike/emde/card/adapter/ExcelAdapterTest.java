@@ -8,8 +8,10 @@ import org.springframework.core.io.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ExcelAdapterTest {
     @Test
@@ -29,9 +31,10 @@ public class ExcelAdapterTest {
         ExcelAdapter excelAdapter = new ExcelAdapter();
         List<List<String>> content = getDummyContent();
         //when
-        Resource sxssfWorkbookResource = excelAdapter.getSXSSFWorkbookResource(content);
+        Optional<Resource> resource = excelAdapter.getWorkbookResource(content, "name");
         //then
-        XSSFWorkbook sheets = new XSSFWorkbook(sxssfWorkbookResource.getInputStream());
+        assertTrue(resource.isPresent());
+        XSSFWorkbook sheets = new XSSFWorkbook(resource.get().getInputStream());
         sheets.getNumberOfSheets();
         XSSFSheet sheetAt = sheets.getSheetAt(0);
         int rowNum = sheetAt.getLastRowNum();
