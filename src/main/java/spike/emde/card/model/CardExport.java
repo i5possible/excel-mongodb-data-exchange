@@ -1,30 +1,28 @@
 package spike.emde.card.model;
 
-import spike.emde.model.ToExportField;
 import spike.emde.model.Exportable;
+import spike.emde.model.ToExportClass;
+import spike.emde.model.ToExportField;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ToExportClass(exportName = "cards")
 public class CardExport implements Exportable {
-    private static final List<String> SCHEMA = Arrays.asList(
-            "id", "brief", "content", "assignedTo", "dueDate", "size"
-    );
 
-    @ToExportField
+    @ToExportField(exportName = "id", exportIndex = 1)
     private String id;
-    @ToExportField
+    @ToExportField(exportName = "brief", exportIndex = 2)
     private String brief;
-    @ToExportField
+    @ToExportField(exportName = "content", exportIndex = 3)
     private String content;
-    @ToExportField
+    @ToExportField(exportName = "assigned_to", exportIndex = 4)
     private List<String> assignedTo;
-    @ToExportField
+    @ToExportField(exportName = "due_date", exportIndex = 5)
     private LocalDate dueDate;
-    @ToExportField
+    @ToExportField(exportName = "size", exportIndex = 6)
     private String size;
 
     public String getId() {
@@ -51,16 +49,16 @@ public class CardExport implements Exportable {
         this.content = content;
     }
 
-    public List<String> getAssignedTo() {
-        return assignedTo;
+    public String getAssignedTo() {
+        return assignedTo.stream().collect(Collectors.joining(", "));
     }
 
     public void setAssignedTo(List<String> assignedTo) {
         this.assignedTo = assignedTo;
     }
 
-    public LocalDate getDueDate() {
-        return dueDate;
+    public String getDueDate() {
+        return dueDate.toString();
     }
 
     public void setDueDate(LocalDate dueDate) {
@@ -78,12 +76,12 @@ public class CardExport implements Exportable {
     @Override
     public List<String> toList() {
         List<String> arrayList = new ArrayList();
-        arrayList.add(id);
-        arrayList.add(brief);
-        arrayList.add(content);
-        arrayList.add(assignedTo.stream().collect(Collectors.joining(", ")));
-        arrayList.add(dueDate.toString());
-        arrayList.add(size);
+        arrayList.add(getId());
+        arrayList.add(getBrief());
+        arrayList.add(getContent());
+        arrayList.add(getAssignedTo());
+        arrayList.add(getDueDate());
+        arrayList.add(getSize());
         return arrayList;
     }
 }
