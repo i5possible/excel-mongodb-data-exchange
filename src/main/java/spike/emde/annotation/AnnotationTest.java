@@ -1,8 +1,12 @@
-package spike.emde.card.model;
+package spike.emde.annotation;
 
+import spike.emde.card.model.Exportable;
+import spike.emde.card.model.ToExportField;
+
+import java.util.List;
 import java.util.Map;
 
-public class AnnotationTest implements AnnotatedSchema {
+public class AnnotationTest implements Exportable {
     @ToExportField
     String id;
     @ToExportField(exportName = "名称")
@@ -70,5 +74,10 @@ public class AnnotationTest implements AnnotatedSchema {
                     .filter(annotation -> annotation.getClass().equals(ToExportField.class))
                     .peek(System.out::println).collect(Collectors.toList());
         }).collect(Collectors.toList());*/
+    }
+
+    @Override
+    public List<String> toList() {
+        return null;
     }
 }

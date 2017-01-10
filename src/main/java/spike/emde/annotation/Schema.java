@@ -1,4 +1,7 @@
-package spike.emde.card.model;
+package spike.emde.annotation;
+
+import spike.emde.card.model.ToExportField;
+import spike.emde.utils.FieldValueGetter;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -8,7 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-public interface AnnotatedSchema {
+public interface Schema {
     default List<String> getSchemaList() {
         return Arrays.stream(this.getClass().getDeclaredFields())
                 .filter(field -> field.getAnnotation(ToExportField.class) != null)
@@ -31,7 +34,7 @@ public interface AnnotatedSchema {
                 .map(field -> field)
                 .collect(Collectors.toList());
         list.forEach(field -> {
-            map.put(field.getName(),FieldValueGetter.runGetter(field,this));
+            map.put(field.getName(), FieldValueGetter.runGetter(field,this));
         });
         return map;
     }

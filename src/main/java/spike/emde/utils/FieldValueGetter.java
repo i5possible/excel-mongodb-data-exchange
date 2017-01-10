@@ -1,4 +1,4 @@
-package spike.emde.card.model;
+package spike.emde.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
