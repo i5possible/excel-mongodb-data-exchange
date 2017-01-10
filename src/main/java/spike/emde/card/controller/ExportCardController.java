@@ -1,6 +1,5 @@
 package spike.emde.card.controller;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import spike.emde.card.exception.CannotWriteToWorkbookException;
 import spike.emde.card.service.ExportCardService;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -25,7 +25,7 @@ public class ExportCardController {
     @GetMapping(value = "cards/{cardId}/export",
             produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     public ResponseEntity exportCardToExcel(@PathVariable(value = "cardId") String cardId) {
-        Map<String, String> filterMap = new HashedMap();
+        Map<String, String> filterMap = new HashMap();
         filterMap.put("cardId",cardId);
         return getExportCardsResponseEntity(filterMap);
     }
