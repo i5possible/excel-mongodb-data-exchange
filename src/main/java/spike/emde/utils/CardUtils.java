@@ -1,6 +1,6 @@
 package spike.emde.utils;
 
-import spike.emde.card.model.Card;
+import spike.emde.card.model.CardInfo;
 
 import java.lang.reflect.Field;
 import java.text.ParseException;
@@ -17,10 +17,10 @@ public class CardUtils {
         return CardUtils.cardDir + fileName;
     }
 
-    public static String[][] convertCardsToStringArray(Card... cards) {
+    public static String[][] convertCardsToStringArray(CardInfo... cardInfos) {
         List<String[]> cardList = new ArrayList<>();
 
-        Class<Card> cardClass = Card.class;
+        Class<CardInfo> cardClass = CardInfo.class;
         Field[] fields = cardClass.getDeclaredFields();
 
         List<String> scheme = new ArrayList<>();
@@ -29,21 +29,21 @@ public class CardUtils {
         }
 
         cardList.add(scheme.toArray(new String[scheme.size()]));
-        for (Card card : cards) {
-            cardList.add(card.toStringArray());
+        for (CardInfo cardInfo : cardInfos) {
+            cardList.add(cardInfo.toStringArray());
         }
         return cardList.toArray(new String[cardList.size()][]);
     }
 
-    public static String[][] convertCardsToStringArray(Card card) {
-        Card[] cards = {card};
-        return convertCardsToStringArray(cards);
+    public static String[][] convertCardsToStringArray(CardInfo cardInfo) {
+        CardInfo[] cardInfos = {cardInfo};
+        return convertCardsToStringArray(cardInfos);
     }
 
-    public static List<Card> convertStringArrayToCards(String[][] strings) {
+    public static List<CardInfo> convertStringArrayToCards(String[][] strings) {
         int rowLen = strings.length;
         String[] schema = strings[0];
-        List<Card> cardList = new ArrayList<>();
+        List<CardInfo> cardInfoList = new ArrayList<>();
         int columnLen = schema.length;
         for (int i = 1; i < rowLen; i++) {
             String[] string = strings[i];
@@ -52,12 +52,12 @@ public class CardUtils {
                 map.put(schema[j], string[j]);
             }
             try {
-                Card card = new Card(map);
-                cardList.add(card);
+                CardInfo cardInfo = new CardInfo(map);
+                cardInfoList.add(cardInfo);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
-        return cardList;
+        return cardInfoList;
     }
 }
