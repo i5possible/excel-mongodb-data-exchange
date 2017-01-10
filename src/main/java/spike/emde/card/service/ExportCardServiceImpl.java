@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 import spike.emde.card.adapter.FileAdapter;
 import spike.emde.card.converter.ExportModelConverter;
 import spike.emde.card.exception.CannotWriteToWorkbookException;
-import spike.emde.card.model.Card;
+import spike.emde.card.model.CardInfo;
 import spike.emde.card.repository.CardRepository;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -27,8 +28,10 @@ public class ExportCardServiceImpl implements ExportCardService {
     }
 
     @Override
-    public Optional<Resource> exportCardToExcel(String cardId) throws CannotWriteToWorkbookException {
-        Optional<Card> card = cardRepository.findById(cardId);
+    public Optional<Resource> exportCardsToExcel(Map<String, String> filterMap) throws CannotWriteToWorkbookException {
+        // TODO: 10/01/2017 Implement the findBy... method.
+        String cardId = filterMap.get("cardId");
+        Optional<CardInfo> card = cardRepository.findById(cardId);
         if (card.isPresent()) {
             return card.map(converter::convert).map(adapter::write).orElseThrow(CannotWriteToWorkbookException::new);
         } else {
