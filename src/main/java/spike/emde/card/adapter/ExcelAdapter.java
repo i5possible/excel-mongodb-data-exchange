@@ -23,11 +23,11 @@ import java.util.Optional;
 public class ExcelAdapter implements FileAdapter {
 
     @Override
-    public Optional<Resource> write(Exportable... cardExport){ // TODO: rename here
+    public Optional<Resource> write(Exportable... toExportResource){ // TODO: rename here
         List<List<String>> content = new ArrayList<>();
         content.add(CardExport.getSchema()); // TODO: annotation
 
-        Arrays.asList(cardExport).stream().map(Exportable::toList).forEach(content::add);
+        Arrays.asList(toExportResource).stream().map(Exportable::toList).forEach(content::add);
 
         // Arrays.asList(cardExport).stream().collect(groupBy)
 
@@ -39,7 +39,8 @@ public class ExcelAdapter implements FileAdapter {
         // schema data -> sheet 3
         // version -> sheet 4 version 4
 
-        return getWorkbookResource(content);
+        String fileName = "";
+        return getWorkbookResource(content, fileName);
     }
 
     @Override
@@ -47,13 +48,13 @@ public class ExcelAdapter implements FileAdapter {
         return null;
     }
 
-    private Optional<Resource> getWorkbookResource(List<List<String>> content){
+    private Optional<Resource> getWorkbookResource(List<List<String>> content, String description){
         Workbook workbook = writeToWorkBook(content);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
             workbook.write(byteArrayOutputStream);
             // Optional.of or Optional.ofNullable
-            return Optional.of(new ByteArrayResource(byteArrayOutputStream.toByteArray()));
+            return Optional.of(new ByteArrayResource(byteArrayOutputStream.toByteArray(), description));
         } catch (IOException e) {
             return Optional.empty();
             //e.printStackTrace(); // TODO: log
