@@ -1,14 +1,14 @@
 package spike.emde.model;
 
 import java.util.List;
-import java.util.Map;
 
+@ToExportClass(exportName = "TEST")
 public class AnnotationTest implements Exportable {
-    @ToExportField
+    @ToExportField(exportName = "序号", exportIndex = 1 )
     String id;
-    @ToExportField(exportName = "名称")
+    @ToExportField(exportName = "名称", exportIndex = 2)
     String name;
-    @ToExportField(exportName = "性别")
+    @ToExportField(exportName = "性别", exportIndex = 3)
     String sex;
 
     public AnnotationTest() {
@@ -33,19 +33,7 @@ public class AnnotationTest implements Exportable {
     }
 
     public static void main(String[] args) {
-        AnnotationTest annotationTest = new AnnotationTest();
-        annotationTest.getSchemaList().stream().forEach(System.out::println);
-
-        annotationTest.getSchemaNameMap().forEach((k, v) -> {
-                    System.out.println(k + " : " + v);
-                }
-        );
-
-        AnnotationTest annotationTest1 = new AnnotationTest("1", "LH", "Male");
-        Map<String, Object> schemaValueMap = annotationTest1.getSchemaValueMap();
-        schemaValueMap.forEach((k, v) -> {
-            System.out.println("key:" + k + "   value:" + v);
-        });
+//        Exportable.getSchemaInfoList(AnnotationTest.class).stream().forEach(System.out::println);
 //        ToExportField[] annotationsByType = AnnotationTest.class.getAnnotationsByType(ToExportField.class);
 //         interface spike.emde.annotation.ToExportField
 //         System.out.println(ToExportField.class);
