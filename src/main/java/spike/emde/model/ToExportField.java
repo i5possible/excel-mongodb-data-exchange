@@ -1,4 +1,4 @@
-package spike.emde.annotation;
+package spike.emde.model;
 
 import java.lang.annotation.*;
 

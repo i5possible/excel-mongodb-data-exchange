@@ -1,6 +1,7 @@
 package spike.emde.card.model;
 
-import spike.emde.annotation.ToExportField;
+import spike.emde.model.ToExportField;
+import spike.emde.model.Exportable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

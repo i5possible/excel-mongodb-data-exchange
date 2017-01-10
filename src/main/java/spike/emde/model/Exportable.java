@@ -1,6 +1,4 @@
-package spike.emde.card.model;
-
-import spike.emde.annotation.Schema;
+package spike.emde.model;
 
 import java.util.List;
 

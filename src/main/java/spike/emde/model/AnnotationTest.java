@@ -1,6 +1,4 @@
-package spike.emde.annotation;
-
-import spike.emde.card.model.Exportable;
+package spike.emde.model;
 
 import java.util.List;
 import java.util.Map;
