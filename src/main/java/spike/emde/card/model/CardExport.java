@@ -11,11 +11,17 @@ public class CardExport implements Exportable {
             "id", "brief", "content", "assignedTo", "dueDate", "size"
     );
 
+    @ToExportField
     private String id;
+    @ToExportField
     private String brief;
+    @ToExportField
     private String content;
+    @ToExportField
     private List<String> assignedTo;
+    @ToExportField
     private LocalDate dueDate;
+    @ToExportField
     private String size;
 
     public String getId() {
