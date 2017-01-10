@@ -1,7 +1,6 @@
 package spike.emde.annotation;
 
 import spike.emde.card.model.Exportable;
-import spike.emde.card.model.ToExportField;
 
 import java.util.List;
 import java.util.Map;
@@ -50,7 +49,7 @@ public class AnnotationTest implements Exportable {
             System.out.println("key:" + k + "   value:" + v);
         });
 //        ToExportField[] annotationsByType = AnnotationTest.class.getAnnotationsByType(ToExportField.class);
-//         interface spike.emde.card.model.ToExportField
+//         interface spike.emde.annotation.ToExportField
 //         System.out.println(ToExportField.class);
 
 /*        Field[] declaredFields = AnnotationTest.class.getDeclaredFields();

@@ -1,4 +1,4 @@
-package spike.emde.card.model;
+package spike.emde.annotation;
 
 import java.lang.annotation.*;
 

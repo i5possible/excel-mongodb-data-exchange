@@ -1,6 +1,5 @@
 package spike.emde.annotation;
 
-import spike.emde.card.model.ToExportField;
 import spike.emde.utils.FieldValueGetter;
 
 import java.lang.reflect.Field;

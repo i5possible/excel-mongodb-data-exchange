@@ -4,12 +4,12 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
-import spike.emde.card.model.CardExport;
 import spike.emde.card.model.CardImport;
 import spike.emde.card.model.Exportable;
 
@@ -23,12 +23,11 @@ import java.util.Optional;
 public class ExcelAdapter implements FileAdapter {
 
     @Override
-    public Optional<Resource> write(Exportable... toExportResource){ // TODO: rename here
+    public Optional<Resource> write(Exportable... toExportResources) { // TODO: rename here
         List<List<String>> content = new ArrayList<>();
-        content.add(CardExport.getSchema()); // TODO: annotation
-
-        Arrays.asList(toExportResource).stream().map(Exportable::toList).forEach(content::add);
-
+//        content.add(CardExport.getSchema()); // TODO: annotation
+        Arrays.asList(toExportResources).stream().map(Exportable::toList).forEach(content::add);
+        Arrays.stream(toExportResources).map(Exportable::getSchemaList);
         // Arrays.asList(cardExport).stream().collect(groupBy)
 
         // card card people people label
@@ -39,6 +38,10 @@ public class ExcelAdapter implements FileAdapter {
         // schema data -> sheet 3
         // version -> sheet 4 version 4
 
+
+        /*
+         * Each toExportResource create a sheet in workbook.
+         */
         String fileName = "";
         return getWorkbookResource(content, fileName);
     }
@@ -48,11 +51,12 @@ public class ExcelAdapter implements FileAdapter {
         return null;
     }
 
-    private Optional<Resource> getWorkbookResource(List<List<String>> content, String description){
-        Workbook workbook = writeToWorkBook(content);
+    private Optional<Resource> getWorkbookResource(List<List<String>> content, String description) {
+        SXSSFWorkbook sheets = new SXSSFWorkbook(100);
+        writeToSheet(sheets, content,description);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
-            workbook.write(byteArrayOutputStream);
+            sheets.write(byteArrayOutputStream);
             // Optional.of or Optional.ofNullable
             return Optional.of(new ByteArrayResource(byteArrayOutputStream.toByteArray(), description));
         } catch (IOException e) {
@@ -67,18 +71,22 @@ public class ExcelAdapter implements FileAdapter {
         }
     }
 
-    private Workbook writeToWorkBook(List<List<String>> content) {
-        SXSSFWorkbook sheets = new SXSSFWorkbook(100);
-        Sheet sheet = sheets.createSheet();
+    private <T extends Exportable> Workbook writeToWorkbook(List<T> toExportResource) {
+        Workbook workbook = new SXSSFWorkbook(100);
+        return workbook;
+    }
+
+    private Sheet writeToSheet(SXSSFWorkbook workbook, List<List<String>> content, String sheetName) {
+        SXSSFSheet sheet = workbook.createSheet(sheetName);
         int rowSeq = 0;
-        for(List<String> listString : content) {
+        for (List<String> listString : content) {
             Row row = sheet.createRow(rowSeq++);
             int cellSeq = 0;
-            for(String cellString : listString) {
+            for (String cellString : listString) {
                 Cell cell = row.createCell(cellSeq++);
                 cell.setCellValue(cellString);
             }
         }
-        return sheets;
+        return sheet;
     }
 }
