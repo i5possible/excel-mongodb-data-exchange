@@ -83,8 +83,4 @@ public class CardExport implements Exportable {
         arrayList.add(size);
         return arrayList;
     }
-
-    public static List<String> getSchema() {
-        return SCHEMA;
-    }
 }
