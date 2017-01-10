@@ -1,7 +1,7 @@
 package spike.emde.utils;
 
 import org.junit.Test;
-import spike.emde.card.model.Card;
+import spike.emde.card.model.CardInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,22 +9,22 @@ import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static spike.emde.card.model.CardTest.getDummyCard;
+import static spike.emde.card.model.CardInfoTest.getDummyCard;
 
-public class CardUtilsTest {
+public class CardInfoUtilsTest {
     @Test
     public void convertCardsToStringArray() throws Exception {
         //given
-        Card dummyCard = getDummyCard();
+        CardInfo dummyCardInfo = getDummyCard();
         //when
-        String[][] actual = CardUtils.convertCardsToStringArray(dummyCard);
+        String[][] actual = CardUtils.convertCardsToStringArray(dummyCardInfo);
         //then
         String[][] expected = {
                 {
                         "id", "brief", "content", "assignedTo", "dueDate"
                 },
                 {
-                        "1", "First Card", "This is content.", "Hong Liang, Yuchen Zhang", "2017-01-04"
+                        "1", "First CardInfo", "This is content.", "Hong Liang, Yuchen Zhang", "2017-01-04"
                 }
         };
         assertArrayEquals(expected, actual);
@@ -33,12 +33,12 @@ public class CardUtilsTest {
     @Test
     public void convertStringArrayToCards () {
         String path = "cards.xlsx";
-        List<Card> cardList = new ArrayList<>();
+        List<CardInfo> cardInfoList = new ArrayList<>();
         try {
-            cardList = CardUtils.convertStringArrayToCards(ExcelUtils.readFromExcel(path));
+            cardInfoList = CardUtils.convertStringArrayToCards(ExcelUtils.readFromExcel(path));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertEquals(2,cardList.size());
+        assertEquals(2, cardInfoList.size());
     }
 }

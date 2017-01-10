@@ -16,7 +16,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
     needs the lombok plugin and enable the annotation processor.
  */
 @JsonInclude(value = NON_EMPTY)
-public class Card {
+public class CardInfo {
     private String id;
     @NotNull
     private String brief;
@@ -151,11 +151,11 @@ public class Card {
         return map;
     }
 
-    public Card() {
+    public CardInfo() {
 
     }
 
-    public Card(Map<String, String> cardMap) throws ParseException {
+    public CardInfo(Map<String, String> cardMap) throws ParseException {
         this.id = cardMap.get("id");
         this.brief = cardMap.get("brief");
         this.content = cardMap.get("content");
