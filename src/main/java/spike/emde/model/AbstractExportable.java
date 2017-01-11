@@ -51,7 +51,7 @@ public abstract class AbstractExportable implements Exportable {
     // TODO: 11/01/2017 schemaValueMap.get(field) : when to convert to string.
     public List<String> toList(List<String> exportField) {
         Map<String, Object> schemaValueMap = this.getSchemaValueMap();
-        List<String> schema = fetchSchema();
+        List<String> schema = fetchSchema(exportField);
         return schema.stream()
                 .map(field -> schemaValueMap.get(field).toString())
                 .collect(Collectors.toList());

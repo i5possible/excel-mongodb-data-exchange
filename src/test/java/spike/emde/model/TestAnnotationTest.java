@@ -47,6 +47,7 @@ public class TestAnnotationTest {
     @Test
     public void shouldReturnSchemaWithinGivingList() {
         List<String> givenList = Arrays.asList("id", "sex");
+        annotationTest.fetchSchema(givenList);
         List<String> expected = Arrays.asList("id", "sex");
         assertEquals(expected, givenList);
     }
