@@ -1,28 +1,28 @@
 package spike.emde.card.model;
 
+import spike.emde.model.Column;
 import spike.emde.model.Exportable;
-import spike.emde.model.ToExportClass;
-import spike.emde.model.ToExportField;
+import spike.emde.model.Title;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ToExportClass(exportName = "cards")
+@Title(name = "cards")
 public class CardExport implements Exportable {
 
-    @ToExportField(exportName = "id", exportIndex = 1)
+    @Column(name = "id", index = 1)
     private String id;
-    @ToExportField(exportName = "brief", exportIndex = 2)
+    @Column(name = "brief", index = 2)
     private String brief;
-    @ToExportField(exportName = "content", exportIndex = 3)
+    @Column(name = "content", index = 3)
     private String content;
-    @ToExportField(exportName = "assigned_to", exportIndex = 4)
+    @Column(name = "assigned_to", index = 4)
     private List<String> assignedTo;
-    @ToExportField(exportName = "due_date", exportIndex = 5)
+    @Column(name = "due_date", index = 5)
     private LocalDate dueDate;
-    @ToExportField(exportName = "size", exportIndex = 6)
+    @Column(name = "size", index = 6)
     private String size;
 
     public String getId() {

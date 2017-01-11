@@ -12,11 +12,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import spike.emde.card.model.CardImport;
 import spike.emde.model.Exportable;
-import spike.emde.model.FieldInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +24,12 @@ public class ExcelAdapter implements FileAdapter {
     @Override
     public Optional<Resource> write(Exportable... toExportResources) { // TODO: rename here
         List<List<String>> content = new ArrayList<>();
-//        content.add(CardExport.getSchema()); // TODO: annotation
-        Arrays.asList(toExportResources).stream().map(Exportable::toList).forEach(content::add);
-        Arrays.stream(toExportResources).map(Exportable::getClass).map(Exportable::getSchemaInfoList);
+//        content.add(CardExport.fetchSchema()); // TODO: annotation
+//        Arrays.asList(toExportResources).stream().map(Exportable::toList).forEach(content::add);
+//        Arrays.stream(toExportResources).map(Exportable::getClass).map(Exportable::getSchemaInfoList);
+
+//        Arrays.stream(toExportResources).collect(Collectors.groupingBy())
+
         // Arrays.asList(cardExport).stream().collect(groupBy)
 
         // card card people people label
@@ -38,6 +39,7 @@ public class ExcelAdapter implements FileAdapter {
         // schema data data -> sheet 2
         // schema data -> sheet 3
         // version -> sheet 4 version 4
+
 
 
         /*
@@ -76,12 +78,12 @@ public class ExcelAdapter implements FileAdapter {
         Workbook workbook = new SXSSFWorkbook(100);
 
 
-        toExportResource.stream().forEach(e -> {
+      /*  toExportResource.stream().forEach(e -> {
             Class<? extends Exportable> aClass = e.getClass();
             String modelExportName = Exportable.getModelExportName(aClass);
-            List<FieldInfo> schemaInfoList = Exportable.getSchemaInfoList(aClass);
         });
-        return workbook;
+        return workbook;*/
+        return null;
     }
 
     private Sheet writeToSheet(SXSSFWorkbook workbook, List<List<String>> content, String sheetName) {

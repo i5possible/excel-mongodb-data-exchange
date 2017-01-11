@@ -3,8 +3,9 @@ package spike.emde.model;
 import java.lang.annotation.*;
 
 @Documented
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ToExportClass {
-    String exportName() default "";
+public @interface Column {
+    String name() default "";
+    int index();
 }
