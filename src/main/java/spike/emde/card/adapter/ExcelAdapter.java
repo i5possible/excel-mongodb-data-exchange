@@ -11,42 +11,23 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import spike.emde.card.model.CardImport;
+import spike.emde.model.AbstractExportable;
 import spike.emde.model.Exportable;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class ExcelAdapter implements FileAdapter {
 
     @Override
-    public Optional<Resource> write(Exportable... toExportResources) { // TODO: rename here
-        List<List<String>> content = new ArrayList<>();
-//        content.add(CardExport.fetchSchema()); // TODO: annotation
-//        Arrays.asList(toExportResources).stream().map(Exportable::toList).forEach(content::add);
-//        Arrays.stream(toExportResources).map(Exportable::getClass).map(Exportable::getSchemaInfoList);
-
-//        Arrays.stream(toExportResources).collect(Collectors.groupingBy())
-
-        // Arrays.asList(cardExport).stream().collect(groupBy)
-
-        // card card people people label
-        // group by
-
-        // schema data data data -> sheet 1
-        // schema data data -> sheet 2
-        // schema data -> sheet 3
-        // version -> sheet 4 version 4
-
-
-
-        /*
-         * Each toExportResource create a sheet in workbook.
-         */
-        String fileName = "";
-        return getWorkbookResource(content, fileName);
+    public Optional<Resource> write(String resourcesName, AbstractExportable... toExportResources) { // TODO: rename here
+        return getWorkbookResource(resourcesName, new ArrayList<>(
+                Arrays.stream(toExportResources)
+                        .collect(Collectors.groupingBy(Exportable::getClass))
+                        .values())
+        );
     }
 
     @Override
@@ -54,36 +35,34 @@ public class ExcelAdapter implements FileAdapter {
         return null;
     }
 
-    public Optional<Resource> getWorkbookResource(List<List<String>> content, String description) {
-        SXSSFWorkbook sheets = new SXSSFWorkbook(100);
-        writeToSheet(sheets, content,description);
+    public <T extends AbstractExportable> Optional<Resource> getWorkbookResource(String resourcesName, List<List<T>> groupedResources) {
+        Workbook workbook = writeToWorkbook(groupedResources);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
-            sheets.write(byteArrayOutputStream);
-            // Optional.of or Optional.ofNullable
-            return Optional.of(new ByteArrayResource(byteArrayOutputStream.toByteArray(), description));
+            workbook.write(byteArrayOutputStream);
+            return Optional.of(new ByteArrayResource(byteArrayOutputStream.toByteArray(), resourcesName));
         } catch (IOException e) {
             return Optional.empty();
-            //e.printStackTrace(); // TODO: log
-            // Pretend there is a log.
+            // Pretend there is a log.// TODO: log
         } finally {
             try {
                 byteArrayOutputStream.close();
+                workbook.close();
             } catch (IOException ignored) {
             }
         }
     }
 
-    private <T extends Exportable> Workbook writeToWorkbook(List<T> toExportResource) {
-        Workbook workbook = new SXSSFWorkbook(100);
+    private <T extends AbstractExportable> Workbook writeToWorkbook(List<List<T>> groupedResources) {
+        SXSSFWorkbook workbook = new SXSSFWorkbook(100);
+        groupedResources.forEach(resources -> writeToSheet(workbook,resources));
+        return workbook;
+    }
 
-
-      /*  toExportResource.stream().forEach(e -> {
-            Class<? extends Exportable> aClass = e.getClass();
-            String modelExportName = Exportable.getModelExportName(aClass);
-        });
-        return workbook;*/
-        return null;
+    private <T extends AbstractExportable> Sheet writeToSheet(SXSSFWorkbook workbook, List<T> resources) {
+        return writeToSheet(workbook, resources.stream()
+                .map(AbstractExportable::toList)
+                .collect(Collectors.toList()), resources.get(0).fetchTitle());
     }
 
     private Sheet writeToSheet(SXSSFWorkbook workbook, List<List<String>> content, String sheetName) {

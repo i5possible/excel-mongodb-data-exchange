@@ -31,9 +31,12 @@ public class ExportCardServiceImpl implements ExportCardService {
     public Optional<Resource> exportCardsToExcel(Map<String, String> filterMap) throws CannotWriteToWorkbookException {
         // TODO: 10/01/2017 Implement the findBy... method.
         String cardId = filterMap.get("cardId");
+        String fileName = filterMap.get("fileName");
         Optional<CardInfo> card = cardRepository.findById(cardId);
         if (card.isPresent()) {
-            return card.map(converter::convert).map(adapter::write).orElseThrow(CannotWriteToWorkbookException::new);
+            return card.map(converter::convert)
+                    .map(cardExport -> adapter.write(fileName, cardExport))
+                    .orElseThrow(CannotWriteToWorkbookException::new);
         } else {
             return Optional.empty();
         }

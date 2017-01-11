@@ -1,7 +1,7 @@
 package spike.emde.card.model;
 
+import spike.emde.model.AbstractExportable;
 import spike.emde.model.Column;
-import spike.emde.model.Exportable;
 import spike.emde.model.Title;
 
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Title(name = "cards")
-public class CardExport implements Exportable {
+public class CardExport extends AbstractExportable {
 
     @Column(name = "id", index = 1)
     private String id;
