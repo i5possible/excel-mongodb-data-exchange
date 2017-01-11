@@ -21,13 +21,14 @@ public class CardInfoTest {
         cardInfo.setContent("This is content.");
         cardInfo.setAssignedTo(owner);
         cardInfo.setDueDate(LocalDate.of(2017,1,4));
+        cardInfo.setSize("S");
         return cardInfo;
     }
 
     @Test
     public void shouldReturnCardStringAsExpected() throws ParseException {
         CardInfo cardInfo = getDummyCard();
-        String[] expectedStringArray = {"1", "First CardInfo", "This is content.", "Hong Liang, Yuchen Zhang", "2017-01-04"};
+        String[] expectedStringArray = {"1", "First CardInfo", "This is content.", "Hong Liang, Yuchen Zhang", "2017-01-04", "S"};
         assertArrayEquals(expectedStringArray, cardInfo.toStringArray());
     }
 }

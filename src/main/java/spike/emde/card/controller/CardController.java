@@ -18,17 +18,17 @@ public class CardController {
         this.cardServices = cardServices;
     }
 
-    @GetMapping(value = "/card/get/{cardId}")
+    @GetMapping(value = "/cards/{cardId}")
     public ResponseEntity getCard(@PathVariable(value = "cardId") String cardId) {
         return ResponseEntity.ok(cardServices.getCard(cardId).get());
     }
 
-    @GetMapping(value = "/card/getBySize/{size}")
-    public ResponseEntity getCardBySize(@PathVariable(value = "size") String size) {
+    @GetMapping(value = "/cards/")
+    public ResponseEntity getCardBySize(@RequestParam(value = "size") String size) {
         return ResponseEntity.ok(cardServices.getCardsBySize(size));
     }
 
-    @PostMapping(value = "/card", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/cards", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createCard(@RequestBody @Valid CardInfo cardInfo) {
         cardServices.createCard(cardInfo);
         return ResponseEntity.accepted().build();

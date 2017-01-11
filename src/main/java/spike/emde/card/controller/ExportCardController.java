@@ -27,6 +27,7 @@ public class ExportCardController {
     public ResponseEntity exportCardToExcel(@PathVariable(value = "cardId") String cardId) {
         Map<String, String> filterMap = new HashMap();
         filterMap.put("cardId",cardId);
+        filterMap.put("fileName", "testFile");
         return getExportCardsResponseEntity(filterMap);
     }
 
