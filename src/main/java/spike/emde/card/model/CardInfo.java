@@ -1,12 +1,10 @@
 package spike.emde.card.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import spike.emde.utils.MyConstant;
 
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.*;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
@@ -25,10 +23,9 @@ public class CardInfo {
 
     private List<String> assignedTo;
 
-//    private String priority;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd")
-    private LocalDate dueDate;
+    //    private String priority;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+//    private LocalDate dueDate;
 
 //    private double estimateHours;
 //
@@ -84,18 +81,18 @@ public class CardInfo {
 //        this.priority = priority;
 //    }
 
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public String getDueDateString() {
-        return dueDate == null ? MyConstant.empty : dueDate.toString();
-    }
-
+//    public LocalDate getDueDate() {
+//        return dueDate;
+//    }
+//
+//    public void setDueDate(LocalDate dueDate) {
+//        this.dueDate = dueDate;
+//    }
+//
+//    public String getDueDateString() {
+//        return dueDate == null ? MyConstant.empty : dueDate.toString();
+//    }
+//
 //    public double getEstimateHours() {
 //        return estimateHours;
 //    }
@@ -128,7 +125,7 @@ public class CardInfo {
         list.add(content);
         list.add(getAssignedToString());
 //        list.add(priority);
-        list.add(getDueDateString());
+//        list.add(getDueDateString());
 //        list.add("" + estimateHours);
 //        list.add(classOfServices);
         list.add(size);
@@ -143,7 +140,7 @@ public class CardInfo {
         map.put("content", content);
         map.put("assignedTo", getAssignedToString());
 //        map.put("priority", priority);
-        map.put("dueDate", getDueDateString());
+//        map.put("dueDate", getDueDateString());
 //        map.put("estimateHours", "" + estimateHours);
 //        map.put("classOfServices", classOfServices);
         map.put("size", size);
@@ -160,7 +157,7 @@ public class CardInfo {
         this.brief = cardMap.get("brief");
         this.content = cardMap.get("content");
         this.assignedTo = Arrays.asList(cardMap.get("assignedTo"));
-        this.dueDate = LocalDate.parse(cardMap.get("dueDate"));
+//        this.dueDate = LocalDate.parse(cardMap.get("dueDate"));
         this.size = cardMap.get("size");
     }
 }

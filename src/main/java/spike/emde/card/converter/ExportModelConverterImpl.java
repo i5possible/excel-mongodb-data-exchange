@@ -13,7 +13,7 @@ public class ExportModelConverterImpl implements ExportModelConverter {
         export.setBrief(cardInfo.getBrief());
         export.setContent(cardInfo.getContent());
         export.setAssignedTo(cardInfo.getAssignedTo());
-        export.setDueDate(cardInfo.getDueDate());
+//        export.setDueDate(cardInfo.getDueDate());
         export.setSize(cardInfo.getId());
         return export;
     }
