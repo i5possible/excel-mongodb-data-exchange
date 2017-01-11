@@ -1,10 +1,13 @@
 package spike.emde.card.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import spike.emde.utils.MyConstant;
 
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.*;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
@@ -25,7 +28,9 @@ public class CardInfo {
 
     //    private String priority;
 //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-//    private LocalDate dueDate;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dueDate;
 
 //    private double estimateHours;
 //
@@ -81,17 +86,17 @@ public class CardInfo {
 //        this.priority = priority;
 //    }
 
-//    public LocalDate getDueDate() {
-//        return dueDate;
-//    }
-//
-//    public void setDueDate(LocalDate dueDate) {
-//        this.dueDate = dueDate;
-//    }
-//
-//    public String getDueDateString() {
-//        return dueDate == null ? MyConstant.empty : dueDate.toString();
-//    }
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String getDueDateString() {
+        return dueDate == null ? MyConstant.empty : dueDate.toString();
+    }
 //
 //    public double getEstimateHours() {
 //        return estimateHours;
