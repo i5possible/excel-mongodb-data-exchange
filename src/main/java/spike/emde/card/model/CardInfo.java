@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import spike.emde.utils.MyConstant;
 
 import javax.validation.constraints.NotNull;
-import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.*;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
@@ -15,7 +16,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
     needs the lombok plugin and enable the annotation processor.
  */
 @JsonInclude(value = NON_EMPTY)
-public class Card {
+public class CardInfo {
     private String id;
     @NotNull
     private String brief;
@@ -27,13 +28,13 @@ public class Card {
 //    private String priority;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd")
-    private Date dueDate;
+    private LocalDate dueDate;
 
 //    private double estimateHours;
 //
 //    private String classOfServices;
-//
-//    private String size;
+
+    private String size;
 
     // This member is to test the JsonInclude.
     //private String unused;
@@ -83,16 +84,16 @@ public class Card {
 //        this.priority = priority;
 //    }
 
-    public Date getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
     public String getDueDateString() {
-        return dueDate == null ? MyConstant.empty : new SimpleDateFormat("yyyy-mm-dd").format(dueDate);
+        return dueDate == null ? MyConstant.empty : dueDate.toString();
     }
 
 //    public double getEstimateHours() {
@@ -111,13 +112,14 @@ public class Card {
 //        this.classOfServices = classOfServices;
 //    }
 //
-//    public String getSize() {
-//        return size;
-//    }
-//
-//    public void setSize(String size) {
-//        this.size = size;
-//    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
 
     public String[] toStringArray() {
         List<String> list = new ArrayList<>();
@@ -129,7 +131,7 @@ public class Card {
         list.add(getDueDateString());
 //        list.add("" + estimateHours);
 //        list.add(classOfServices);
-//        list.add(size);
+        list.add(size);
 
         return list.toArray(new String[list.size()]);
     }
@@ -144,8 +146,21 @@ public class Card {
         map.put("dueDate", getDueDateString());
 //        map.put("estimateHours", "" + estimateHours);
 //        map.put("classOfServices", classOfServices);
-//        map.put("size", size);
+        map.put("size", size);
 
         return map;
+    }
+
+    public CardInfo() {
+
+    }
+
+    public CardInfo(Map<String, String> cardMap) throws ParseException {
+        this.id = cardMap.get("id");
+        this.brief = cardMap.get("brief");
+        this.content = cardMap.get("content");
+        this.assignedTo = Arrays.asList(cardMap.get("assignedTo"));
+        this.dueDate = LocalDate.parse(cardMap.get("dueDate"));
+        this.size = cardMap.get("size");
     }
 }

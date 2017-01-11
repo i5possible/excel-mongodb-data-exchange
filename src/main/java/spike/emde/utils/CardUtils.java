@@ -1,33 +1,26 @@
 package spike.emde.utils;
 
-import spike.emde.card.model.Card;
+import spike.emde.card.model.CardInfo;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CardUtils {
 
     private static final String cardDir = new String("src/main/resources/card/");
 
-    public static void WriteCardToExcel(Card[] cards, String filePath) {
-        String[][] cardsInfo = convertCardsToStringArray(cards);
-        try {
-            ExcelUtils.WriteToExcel(cardsInfo, filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static String getCardFilePathByName(String fileName) {
         return CardUtils.cardDir + fileName;
     }
 
-    public static String[][] convertCardsToStringArray(Card[] cards) {
+    public static String[][] convertCardsToStringArray(CardInfo... cardInfos) {
         List<String[]> cardList = new ArrayList<>();
 
-        Class<Card> cardClass = Card.class;
+        Class<CardInfo> cardClass = CardInfo.class;
         Field[] fields = cardClass.getDeclaredFields();
 
         List<String> scheme = new ArrayList<>();
@@ -36,14 +29,35 @@ public class CardUtils {
         }
 
         cardList.add(scheme.toArray(new String[scheme.size()]));
-        for (Card card : cards) {
-            cardList.add(card.toStringArray());
+        for (CardInfo cardInfo : cardInfos) {
+            cardList.add(cardInfo.toStringArray());
         }
         return cardList.toArray(new String[cardList.size()][]);
     }
 
-    public static String[][] convertCardsToStringArray(Card card) {
-        Card[] cards = {card};
-        return convertCardsToStringArray(cards);
+    public static String[][] convertCardsToStringArray(CardInfo cardInfo) {
+        CardInfo[] cardInfos = {cardInfo};
+        return convertCardsToStringArray(cardInfos);
+    }
+
+    public static List<CardInfo> convertStringArrayToCards(String[][] strings) {
+        int rowLen = strings.length;
+        String[] schema = strings[0];
+        List<CardInfo> cardInfoList = new ArrayList<>();
+        int columnLen = schema.length;
+        for (int i = 1; i < rowLen; i++) {
+            String[] string = strings[i];
+            Map<String, String> map = new HashMap<>();
+            for (int j = 0; j < columnLen; j++) {
+                map.put(schema[j], string[j]);
+            }
+            try {
+                CardInfo cardInfo = new CardInfo(map);
+                cardInfoList.add(cardInfo);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return cardInfoList;
     }
 }

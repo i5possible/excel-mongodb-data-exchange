@@ -9,7 +9,7 @@ import spike.emde.ExcelMongoDataExchangeApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = ExcelMongoDataExchangeApplication.class)
-public class CardFunctionalTest {
+public class CardInfoFunctionalTest {
     // TODO: 03/01/2017 Complete the funcitonal test.
     @Test
     public void shouldReturnCardInfoGivenId() {

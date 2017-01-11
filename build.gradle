@@ -33,7 +33,6 @@ dependencies {
     compile "org.apache.poi:poi:${poiVersion}"
     compile "org.apache.poi:poi-ooxml:${poiVersion}"
     compile "org.apache.poi:poi-ooxml-schemas:${poiVersion}"
-    compileOnly "org.projectlombok:lombok:1.16.12"
 }
 
 jar {

@@ -7,10 +7,7 @@ import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,28 +17,21 @@ public class ExcelUtils {
     /**
      * Assume that the content to write are String only.
      */
-    public static void WriteToExcel(String[][] content, String filePath) throws IOException {
-        SXSSFWorkbook sheets = new SXSSFWorkbook(100);
-        int rows = content.length;
-        Sheet sh = sheets.createSheet();
-        for (int rowNum = 0; rowNum < rows; rowNum++) {
-            Row row = sh.createRow(rowNum);
-            int cellLength = content[rowNum].length;
-            for (int cellNum = 0; cellNum < cellLength; cellNum++) {
-                Cell cell = row.createCell(cellNum);
-                cell.setCellValue(content[rowNum][cellNum]);
-            }
-        }
-        File file = new File(filePath);
-        file.deleteOnExit();
-        FileOutputStream out = new FileOutputStream(file);
-        sheets.write(out);
-        out.close();
-        sheets.dispose();
+    public static void writeToExcel(String filePath, List<List<String>> content) throws IOException {
+//        SXSSFWorkbook sheets = new SXSSFWorkbook(100);
+//        int rows = content.size();
+//        Sheet sheet = sheets.createSheet();
+//        writeToSheet(sheet, content);
+//        File file = new File(filePath);
+//        file.deleteOnExit();
+//        FileOutputStream out = new FileOutputStream(file);
+//        sheets.write(out);
+//        out.close();
+//        sheets.dispose();
     }
 
 
-    public static void WriteAddressToExcel(String fileName) throws IOException {
+    public static void writeAddressToExcel(String fileName) throws IOException {
         SXSSFWorkbook wb = new SXSSFWorkbook(100);
         Sheet sh = wb.createSheet();
         for (int rowNum = 0; rowNum < 3; rowNum++) {
@@ -58,18 +48,22 @@ public class ExcelUtils {
         wb.dispose();
     }
 
-    public static String[][] ReadFromExcel(String fileName) throws IOException {
+    public static String[][] readFromExcel(String fileName) throws IOException {
         File file = new File(excelSourcePath + fileName);
         FileInputStream fileInputStream = new FileInputStream(file);
-        XSSFWorkbook sheets = new XSSFWorkbook(fileInputStream);
+        return readFromInputStream(fileInputStream);
+    }
+
+    public static String[][] readFromInputStream(InputStream inputStream) throws IOException {
+        XSSFWorkbook sheets = new XSSFWorkbook(inputStream);
         Sheet sheet = sheets.getSheetAt(0);
-        List<String[]> bookListStringArray = new ArrayList<String[]>();
+        List<String[]> bookListStringArray = new ArrayList<>();
         int firstRowNum = sheet.getFirstRowNum();
         int lastRowNum = sheet.getLastRowNum();
         for (int rowNum = firstRowNum; rowNum <= lastRowNum; rowNum++) {
             Row row = sheet.getRow(rowNum);
             short lastCellNum = row.getLastCellNum();
-            List<String> rowStingArray = new ArrayList<String>();
+            List<String> rowStingArray = new ArrayList<>();
             for (int columnNum = 0; columnNum < lastCellNum; columnNum++) {
                 Cell cell = row.getCell(columnNum);
                 rowStingArray.add(cell.getStringCellValue());
@@ -77,12 +71,13 @@ public class ExcelUtils {
             System.out.println(rowStingArray.toString());
             bookListStringArray.add(rowStingArray.toArray(new String[0]));
         }
+        sheets.close();
         return bookListStringArray.toArray(new String[0][0]);
     }
 
     public static void main(String[] args) throws IOException {
         String fileName = "HelloWorld.xlsx";
-        WriteAddressToExcel(fileName);
-        ReadFromExcel(fileName);
+        writeAddressToExcel(fileName);
+        readFromExcel(fileName);
     }
 }
