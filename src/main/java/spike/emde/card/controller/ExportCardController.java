@@ -49,10 +49,11 @@ public class ExportCardController {
     }
 
     private ResponseEntity buildExportResponse(Resource resource) {
-        String filename = resource.getFilename();
+        String fileName = resource.getFilename();
+        fileName = (fileName == null) ? resource.getDescription() : fileName;
         return ResponseEntity.status(HttpStatus.OK)
                 .header("Content-Disposition",
-                        "attachment; filename=\"" + filename == null ? resource.getDescription() : filename + ".xlsx\"")
+                        "attachment; filename=\"" + fileName + ".xlsx\"")
                 .body(resource);
     }
 }

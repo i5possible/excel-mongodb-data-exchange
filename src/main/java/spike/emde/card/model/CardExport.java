@@ -5,7 +5,6 @@ import spike.emde.model.Column;
 import spike.emde.model.Title;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,7 +72,7 @@ public class CardExport extends AbstractExportable {
         this.size = size;
     }
 
-    @Override
+/*    @Override
     public List<String> toList() {
         List<String> arrayList = new ArrayList();
         arrayList.add(getId());
@@ -83,5 +82,5 @@ public class CardExport extends AbstractExportable {
         arrayList.add(getDueDate());
         arrayList.add(getSize());
         return arrayList;
-    }
+    }*/
 }

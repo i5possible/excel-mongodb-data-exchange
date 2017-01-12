@@ -32,6 +32,7 @@ public abstract class AbstractExportable implements Exportable {
         return Optional.ofNullable(this.getClass().getAnnotation(Title.class)).map(Title::name).orElse("");
     }
 
+    // TODO: 11/01/2017 This four class need to refactor to easilier to understand. 
     public List<String> fetchSchema() {
         return this.getSchemaNameList();
     }
@@ -45,7 +46,11 @@ public abstract class AbstractExportable implements Exportable {
 
     @Override
     public List<String> toList() {
-        return this.toList(new ArrayList<>());
+        Map<String, Object> schemaValueMap = this.getSchemaValueMap();
+        List<String> schema = fetchSchema();
+        return schema.stream()
+                .map(field -> schemaValueMap.get(field).toString())
+                .collect(Collectors.toList());
     }
 
     // TODO: 11/01/2017 schemaValueMap.get(field) : when to convert to string.

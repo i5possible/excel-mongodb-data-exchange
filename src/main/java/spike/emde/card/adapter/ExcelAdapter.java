@@ -15,7 +15,10 @@ import spike.emde.model.AbstractExportable;
 import spike.emde.model.Exportable;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -55,14 +58,17 @@ public class ExcelAdapter implements FileAdapter {
 
     private <T extends AbstractExportable> Workbook writeToWorkbook(List<List<T>> groupedResources) {
         SXSSFWorkbook workbook = new SXSSFWorkbook(100);
-        groupedResources.forEach(resources -> writeToSheet(workbook,resources));
+        groupedResources.forEach(resources -> writeToSheet(workbook, resources));
         return workbook;
     }
 
     private <T extends AbstractExportable> Sheet writeToSheet(SXSSFWorkbook workbook, List<T> resources) {
-        return writeToSheet(workbook, resources.stream()
+        ArrayList<List<String>> content = new ArrayList<>();
+        content.add(resources.get(0).fetchSchema());
+        content.addAll(resources.stream()
                 .map(AbstractExportable::toList)
-                .collect(Collectors.toList()), resources.get(0).fetchTitle());
+                .collect(Collectors.toList()));
+        return writeToSheet(workbook, content, resources.get(0).fetchTitle());
     }
 
     private Sheet writeToSheet(SXSSFWorkbook workbook, List<List<String>> content, String sheetName) {
