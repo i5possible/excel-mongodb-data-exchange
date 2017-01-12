@@ -3,6 +3,7 @@ package spike.emde.card.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.springframework.data.mongodb.core.mapping.Document;
 import spike.emde.utils.MyConstant;
 
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
   @Data
     needs the lombok plugin and enable the annotation processor.
  */
+@Document(collection = "card")
 @JsonInclude(value = NON_EMPTY)
 public class CardInfo {
     private String id;
