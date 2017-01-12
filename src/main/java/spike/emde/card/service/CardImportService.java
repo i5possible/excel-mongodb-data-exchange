@@ -4,6 +4,6 @@ import org.springframework.core.io.Resource;
 
 import java.util.Optional;
 
-public interface ImportCardService {
+public interface CardImportService {
     void writeCardToDB(Optional<Resource> resource);
 }

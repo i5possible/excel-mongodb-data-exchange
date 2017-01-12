@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import spike.emde.card.exception.CannotWriteToWorkbookException;
-import spike.emde.card.service.ExportCardService;
+import spike.emde.card.service.CardExportService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,9 +18,9 @@ import java.util.Optional;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @RestController
-public class ExportCardController {
+public class CardExportController {
     @Autowired
-    ExportCardService exportCardService;
+    CardExportService cardExportService;
 
     @GetMapping(value = "cards/{cardId}/export",
             produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -41,7 +41,7 @@ public class ExportCardController {
     private ResponseEntity getExportCardsResponseEntity(Map<String, String> filterMap) {
         Optional<Resource> resource;
         try {
-            resource = exportCardService.exportCardsToExcel(filterMap);
+            resource = cardExportService.exportCardsToExcel(filterMap);
         } catch (CannotWriteToWorkbookException e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body("Cannot write to workbook!");
         }

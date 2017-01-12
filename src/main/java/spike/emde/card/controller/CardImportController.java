@@ -7,14 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
-import spike.emde.card.service.ImportCardService;
+import spike.emde.card.service.CardImportService;
 
 import java.io.IOException;
 import java.util.Optional;
 
-public class ImportCardController {
+public class CardImportController {
     @Autowired
-    ImportCardService importCardService;
+    CardImportService importCardService;
 
     @PostMapping(value = "cards/import", consumes = "multipart/form-data")
     public ResponseEntity importCard(@PathVariable(value = "file") MultipartFile file) throws IOException {

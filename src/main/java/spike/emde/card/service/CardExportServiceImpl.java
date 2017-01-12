@@ -14,14 +14,14 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class ExportCardServiceImpl implements ExportCardService {
+public class CardExportServiceImpl implements CardExportService {
 
     private final CardRepository cardRepository;
     private final FileAdapter adapter;
     private final ExportModelConverter converter;
 
     @Autowired
-    public ExportCardServiceImpl(CardRepository cardRepository, FileAdapter adapter, ExportModelConverter converter) {
+    public CardExportServiceImpl(CardRepository cardRepository, FileAdapter adapter, ExportModelConverter converter) {
         this.cardRepository = cardRepository;
         this.adapter = adapter;
         this.converter = converter;

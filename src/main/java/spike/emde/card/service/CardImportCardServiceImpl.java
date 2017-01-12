@@ -8,7 +8,7 @@ import spike.emde.card.repository.CardRepository;
 
 import java.util.Optional;
 
-public class ImportCardServiceImpl implements ImportCardService {
+public class CardImportCardServiceImpl implements CardImportService {
     @Autowired
     ExcelAdapter excelAdapter;
 

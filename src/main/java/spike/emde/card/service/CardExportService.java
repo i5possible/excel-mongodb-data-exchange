@@ -6,6 +6,6 @@ import spike.emde.card.exception.CannotWriteToWorkbookException;
 import java.util.Map;
 import java.util.Optional;
 
-public interface ExportCardService {
+public interface CardExportService {
     Optional<Resource> exportCardsToExcel(Map<String, String> filterMap) throws CannotWriteToWorkbookException;
 }
