@@ -2,8 +2,8 @@ package spike.emde.card.converter;
 
 import org.junit.Before;
 import org.junit.Test;
-import spike.emde.card.model.CardInfo;
 import spike.emde.card.model.CardExport;
+import spike.emde.card.model.CardInfo;
 import spike.emde.card.model.CardInfoTest;
 
 import static org.junit.Assert.assertEquals;
@@ -16,8 +16,9 @@ public class ExportModelConverterImplTest {
     public void setUp() throws Exception {
         dummyCardInfo = CardInfoTest.getDummyCard();
     }
+
     @Test
-    public void shouldBeSameAsCard () {
+    public void shouldBeSameAsCard() {
         ExportModelConverter exportModelConverter = new ExportModelConverterImpl();
         CardExport cardExport = exportModelConverter.convert(dummyCardInfo);
         assertEquals(dummyCardInfo.getId(), cardExport.getId());

@@ -2,7 +2,7 @@ package spike.emde.model;
 
 @Title(name = "TEST")
 public class AnnotationTest extends AbstractExportable {
-    @Column(name = "序号", index = 1 )
+    @Column(name = "序号", index = 1)
     String id;
     @Column(name = "名称", index = 2)
     String name;
@@ -18,6 +18,12 @@ public class AnnotationTest extends AbstractExportable {
         this.sex = sex;
     }
 
+    public static void main(String[] args) {
+//          TODO: 09/01/2017 This is really impressed:
+//          class com.sun.proxy.$Proxy3
+//          TODO: Peek needs collect. Or the 'peek' seems not worked.
+    }
+
     public String getId() {
         return id;
     }
@@ -28,11 +34,5 @@ public class AnnotationTest extends AbstractExportable {
 
     public String getSex() {
         return sex;
-    }
-
-    public static void main(String[] args) {
-//          TODO: 09/01/2017 This is really impressed:
-//          class com.sun.proxy.$Proxy3
-//          TODO: Peek needs collect. Or the 'peek' seems not worked.
     }
 }

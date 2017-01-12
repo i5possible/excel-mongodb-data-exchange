@@ -11,5 +11,6 @@ import java.util.Optional;
 @Service
 public interface FileAdapter {
     Optional<Resource> write(String resourcesName, AbstractExportable... toExportResources);
+
     List<CardImport> read(Resource resource);
 }

@@ -53,9 +53,10 @@ public class CardServices {
     /**
      * Read the card from Excel.
      * Write the card to MongoDB one by one.
+     *
      * @param file
      */
-    public void importCardFromExcel (MultipartFile file) {
+    public void importCardFromExcel(MultipartFile file) {
         try {
             InputStream inputStream = file.getInputStream();
             String[][] strings = readFromInputStream(inputStream);

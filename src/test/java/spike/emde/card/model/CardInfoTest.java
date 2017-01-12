@@ -20,7 +20,7 @@ public class CardInfoTest {
         cardInfo.setBrief("First CardInfo");
         cardInfo.setContent("This is content.");
         cardInfo.setAssignedTo(owner);
-        cardInfo.setDueDate(LocalDate.of(2017,1,4));
+        cardInfo.setDueDate(LocalDate.of(2017, 1, 4));
         cardInfo.setSize("S");
         return cardInfo;
     }

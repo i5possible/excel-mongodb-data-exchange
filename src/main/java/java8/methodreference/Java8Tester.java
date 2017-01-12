@@ -1,10 +1,10 @@
 package java8.methodreference;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Java8Tester {
-    public static void main(String args[]){
+    public static void main(String args[]) {
         List names = new ArrayList();
 
         names.add("Mahesh");

@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface CardRepository extends MongoRepository<CardInfo, String> {
     List<CardInfo> findBySize(String size);
+
     Optional<CardInfo> findById(String id);
 }

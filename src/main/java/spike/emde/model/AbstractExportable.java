@@ -14,7 +14,7 @@ public abstract class AbstractExportable implements Exportable {
     private List<String> getSchemaNameList() {
         return Arrays.stream(this.getClass().getDeclaredFields())
                 .filter(field -> field.getAnnotation(Column.class) != null)
-                .sorted(Comparator.comparingInt(field->field.getAnnotation(Column.class).index()))
+                .sorted(Comparator.comparingInt(field -> field.getAnnotation(Column.class).index()))
                 .map(Field::getName)
                 .collect(Collectors.toList());
     }
@@ -24,7 +24,7 @@ public abstract class AbstractExportable implements Exportable {
         List<Field> list = Arrays.stream(this.getClass().getDeclaredFields())
                 .filter(field -> field.getAnnotation(Column.class) != null)
                 .collect(Collectors.toList());
-        list.forEach(field -> map.put(field.getName(), FieldValueGetter.runGetter(field,this)));
+        list.forEach(field -> map.put(field.getName(), FieldValueGetter.runGetter(field, this)));
         return map;
     }
 
@@ -32,7 +32,7 @@ public abstract class AbstractExportable implements Exportable {
         return Optional.ofNullable(this.getClass().getAnnotation(Title.class)).map(Title::name).orElse("");
     }
 
-    // TODO: 11/01/2017 This four class need to refactor to easilier to understand. 
+    // TODO: 11/01/2017 This four class need to refactor to easilier to understand.
     public List<String> fetchSchema() {
         return this.getSchemaNameList();
     }

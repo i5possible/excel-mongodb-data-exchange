@@ -1,8 +1,9 @@
 package java8.optional;
+
 import java.util.Optional;
 
 public class Java8Tester {
-    public static void main(String args[]){
+    public static void main(String args[]) {
 
         Java8Tester java8Tester = new Java8Tester();
         Integer value1 = null;
@@ -22,10 +23,10 @@ public class Java8Tester {
 
         //Optional.of - throws NullPointerException if passed parameter is null
         Optional<Integer> b = Optional.of(value2);
-        System.out.println(java8Tester.sum(a,b));
+        System.out.println(java8Tester.sum(a, b));
     }
 
-    public Integer sum(Optional<Integer> a, Optional<Integer> b){
+    public Integer sum(Optional<Integer> a, Optional<Integer> b) {
 
         //Optional.isPresent - checks the value is present or not
 

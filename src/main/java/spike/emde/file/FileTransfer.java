@@ -47,6 +47,7 @@ public class FileTransfer {
     /**
      * This method ISN'T WORK, I just leave it here.
      * The reason is that the ResponseRender use "application/octet_stream" to process the body.
+     *
      * @param response
      * @return
      * @throws IOException
@@ -60,6 +61,7 @@ public class FileTransfer {
 
     /**
      * This method use FileSystemResource to complete the download. it's simple to write and easy to read.
+     *
      * @param response
      * @return
      * @throws IOException
@@ -74,6 +76,7 @@ public class FileTransfer {
 
     /**
      * This method use stream directly to deal with the file. There must be a better way to complete it.
+     *
      * @param uploadFile
      * @return
      * @throws IOException

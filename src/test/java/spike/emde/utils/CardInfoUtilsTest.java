@@ -31,7 +31,7 @@ public class CardInfoUtilsTest {
     }
 
     @Test
-    public void convertStringArrayToCards () {
+    public void convertStringArrayToCards() {
         String path = "cards.xlsx";
         List<CardInfo> cardInfoList = new ArrayList<>();
         try {

@@ -3,7 +3,7 @@ package java8;
 public class Java8Tester {
 
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         Java8Tester tester = new Java8Tester();
 
         //with type declaration
@@ -13,7 +13,9 @@ public class Java8Tester {
         MathOperation subtraction = (a, b) -> a - b;
 
         //with return statement along with curly braces
-        MathOperation multiplication = (int a, int b) -> { return a * b; };
+        MathOperation multiplication = (int a, int b) -> {
+            return a * b;
+        };
 
         //without return statement and without curly braces
         MathOperation division = (a, b) -> a / b;
@@ -35,6 +37,10 @@ public class Java8Tester {
         greetService2.sayMessage("Suresh");
     }
 
+    private int operate(int a, int b, MathOperation mathOperation) {
+        return mathOperation.operation(a, b);
+    }
+
     @FunctionalInterface
     interface MathOperation {
         int operation(int a, int b);
@@ -43,9 +49,5 @@ public class Java8Tester {
     @FunctionalInterface
     interface GreetingService {
         void sayMessage(String message);
-    }
-
-    private int operate(int a, int b, MathOperation mathOperation){
-        return mathOperation.operation(a, b);
     }
 }

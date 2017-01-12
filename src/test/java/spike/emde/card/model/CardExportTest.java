@@ -30,7 +30,7 @@ public class CardExportTest {
     }
 
     @Test
-    public void shouldReturnCardExportAsList () {
+    public void shouldReturnCardExportAsList() {
         List<String> expected = new ArrayList<>();
         expected.add("001");
         expected.add("This is brief");
@@ -39,7 +39,7 @@ public class CardExportTest {
         expected.add("2017-01-17");
         expected.add("S");
         List<String> actual = completeCardExport.toList();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class CardExportTest {
 
 
     @Test
-    public void shouldReturnFullListWithEmptyProperties () {
+    public void shouldReturnFullListWithEmptyProperties() {
         List<String> expected = new ArrayList<>();
         expected.add("002");
         expected.add("");
@@ -65,11 +65,11 @@ public class CardExportTest {
         expected.add("");
         expected.add("M");
         List<String> actual = simplestCardExport.toList();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldReturnCardExportAsStringWithoutEmptyProperties () {
+    public void shouldReturnCardExportAsStringWithoutEmptyProperties() {
         String expected = "id:002\n" +
                 "size:M";
         String actual = simplestCardExport.toString();

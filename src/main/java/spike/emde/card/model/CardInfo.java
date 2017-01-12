@@ -43,6 +43,19 @@ public class CardInfo {
     // This member is to test the JsonInclude.
     //private String unused;
 
+    public CardInfo() {
+
+    }
+
+    public CardInfo(Map<String, String> cardMap) throws ParseException {
+        this.id = cardMap.get("id");
+        this.brief = cardMap.get("brief");
+        this.content = cardMap.get("content");
+        this.assignedTo = Arrays.asList(cardMap.get("assignedTo"));
+//        this.dueDate = LocalDate.parse(cardMap.get("dueDate"));
+        this.size = cardMap.get("size");
+    }
+
     public String getId() {
         return id;
     }
@@ -71,6 +84,14 @@ public class CardInfo {
         return assignedTo;
     }
 
+//    public String getPriority() {
+//        return priority;
+//    }
+//
+//    public void setPriority(String priority) {
+//        this.priority = priority;
+//    }
+
     public void setAssignedTo(List<String> assignedTo) {
         this.assignedTo = assignedTo;
     }
@@ -80,24 +101,8 @@ public class CardInfo {
                 String.join(", ", assignedTo.toArray(new String[assignedTo.size()]));
     }
 
-//    public String getPriority() {
-//        return priority;
-//    }
-//
-//    public void setPriority(String priority) {
-//        this.priority = priority;
-//    }
-
     public LocalDate getDueDate() {
         return dueDate;
-    }
-
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public String getDueDateString() {
-        return dueDate == null ? MyConstant.empty : dueDate.toString();
     }
 //
 //    public double getEstimateHours() {
@@ -116,6 +121,14 @@ public class CardInfo {
 //        this.classOfServices = classOfServices;
 //    }
 //
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String getDueDateString() {
+        return dueDate == null ? MyConstant.empty : dueDate.toString();
+    }
 
     public String getSize() {
         return size;
@@ -153,18 +166,5 @@ public class CardInfo {
         map.put("size", size);
 
         return map;
-    }
-
-    public CardInfo() {
-
-    }
-
-    public CardInfo(Map<String, String> cardMap) throws ParseException {
-        this.id = cardMap.get("id");
-        this.brief = cardMap.get("brief");
-        this.content = cardMap.get("content");
-        this.assignedTo = Arrays.asList(cardMap.get("assignedTo"));
-//        this.dueDate = LocalDate.parse(cardMap.get("dueDate"));
-        this.size = cardMap.get("size");
     }
 }

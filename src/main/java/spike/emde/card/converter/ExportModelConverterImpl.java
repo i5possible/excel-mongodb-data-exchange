@@ -1,8 +1,8 @@
 package spike.emde.card.converter;
 
 import org.springframework.stereotype.Component;
-import spike.emde.card.model.CardInfo;
 import spike.emde.card.model.CardExport;
+import spike.emde.card.model.CardInfo;
 
 @Component
 public class ExportModelConverterImpl implements ExportModelConverter {
