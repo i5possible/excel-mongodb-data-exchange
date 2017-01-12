@@ -31,7 +31,7 @@ public class CardExportController {
 
     @GetMapping(value = "cards/{cardId}/export",
             produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    public ResponseEntity exportCardExcel(@PathVariable(value = "cardId") String cardId) {
+    public ResponseEntity exportCardsExcel(@PathVariable(value = "cardId") String cardId) {
         Map<String, String> filterMap = new HashMap();
         filterMap.put("cardId", cardId);
         filterMap.put("fileName", "testFile");
@@ -40,7 +40,7 @@ public class CardExportController {
 
     @GetMapping(value = "cards/export",
             produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    public ResponseEntity getCardExcelBySize(@MatrixVariable Map<String, String> filterMap) {
+    public ResponseEntity getCardsExcelBySize(@MatrixVariable Map<String, String> filterMap) {
         return getExportCardsResponseEntity(filterMap);
     }
 
@@ -48,7 +48,7 @@ public class CardExportController {
     private ResponseEntity getExportCardsResponseEntity(Map<String, String> filterMap) {
         Optional<Resource> resource;
         try {
-            resource = cardExportService.exportCardsToExcel(filterMap);
+            resource = cardExportService.exportCardsExcel(filterMap);
         } catch (CannotWriteToWorkbookException e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body("Cannot write to workbook!");
         }
@@ -64,5 +64,8 @@ public class CardExportController {
                 .body(resource);
     }
 
-    private
+    @GetMapping(value = "/cards/export/local")
+    private ResponseEntity exportCardsExcelToLocal (@MatrixVariable Map<String, String> varMap) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
 }

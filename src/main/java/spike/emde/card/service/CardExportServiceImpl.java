@@ -28,7 +28,7 @@ public class CardExportServiceImpl implements CardExportService {
     }
 
     @Override
-    public Optional<Resource> exportCardsToExcel(Map<String, String> filterMap) throws CannotWriteToWorkbookException {
+    public Optional<Resource> exportCardsExcel(Map<String, String> filterMap) throws CannotWriteToWorkbookException {
         // TODO: 10/01/2017 Implement the findBy... method.
         String cardId = filterMap.get("cardId");
         String fileName = filterMap.get("fileName");
