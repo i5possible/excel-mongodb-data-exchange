@@ -1,6 +1,7 @@
 package spike.emde.card.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,15 @@ public class CardExportController {
     @Autowired
     CardExportService cardExportService;
 
+    @Value(value = "export.excel.suffix")
+    String suffix;
+
+    @Value(value = "export.home")
+    String homePath;
+
     @GetMapping(value = "cards/{cardId}/export",
             produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    public ResponseEntity exportCardToExcel(@PathVariable(value = "cardId") String cardId) {
+    public ResponseEntity exportCardExcel(@PathVariable(value = "cardId") String cardId) {
         Map<String, String> filterMap = new HashMap();
         filterMap.put("cardId", cardId);
         filterMap.put("fileName", "testFile");
@@ -53,7 +60,9 @@ public class CardExportController {
         fileName = (fileName == null) ? resource.getDescription() : fileName;
         return ResponseEntity.status(HttpStatus.OK)
                 .header("Content-Disposition",
-                        "attachment; filename=\"" + fileName + ".xlsx\"")
+                        "attachment; filename=\"" + fileName + suffix + "\"")
                 .body(resource);
     }
+
+    private
 }
