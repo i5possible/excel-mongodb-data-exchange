@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.MatrixVariable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import spike.emde.card.exception.CannotWriteToWorkbookException;
 import spike.emde.card.service.CardExportService;
 
@@ -64,8 +61,14 @@ public class CardExportController {
                 .body(resource);
     }
 
-    @GetMapping(value = "/cards/export/local")
-    private ResponseEntity exportCardsExcelToLocal (@MatrixVariable Map<String, String> varMap) {
+    @GetMapping(value = "/cards/export/local/{cardId}")
+    private ResponseEntity exportCardsExcelToLocal (@PathVariable(value = "cardId") String cardId,
+                                                    @RequestParam(value = "fileName") String fileName) {
+        Map<String, String> map= new HashMap<>();
+        map.put("cardId",cardId);
+        map.put("fileName",fileName);
+        Runnable runnable = ()-> cardExportService.exportCardsExcelToLocal(map);
+        runnable.run();
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 }

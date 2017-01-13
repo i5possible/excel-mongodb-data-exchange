@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface CardExportService {
     Optional<Resource> exportCardsExcel(Map<String, String> filterMap) throws CannotWriteToWorkbookException;
+
+    void exportCardsExcelToLocal(Map<String, String> varMap);
 }
