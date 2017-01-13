@@ -28,6 +28,9 @@ targetCompatibility = 1.8
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-aop:${springBootVersion}"
+    compile "org.aspectj:aspectjrt:1.8.5"
+    compile "org.aspectj:aspectjweaver:1.8.5"
     compile "org.springframework.data:spring-data-mongodb:1.9.5.RELEASE"
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     compile "org.apache.poi:poi:${poiVersion}"
@@ -39,5 +42,3 @@ jar {
   baseName = 'emde-spike'
   version = '0.1.0'
 }
-
-
