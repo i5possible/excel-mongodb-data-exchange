@@ -1,4 +1,4 @@
-package springboot;
+package springboot.aop;
 
 
 public aspect MyLogAspect {

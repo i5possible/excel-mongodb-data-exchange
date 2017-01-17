@@ -1,4 +1,4 @@
-package springboot;
+package springboot.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
 @Component
 public class LogAspect {
 
-    @Pointcut("@annotation(springboot.AopAction)")
+    @Pointcut("@annotation(springboot.aop.AopAction)")
     public void annotationPointCut() {
     }
 
@@ -26,7 +26,7 @@ public class LogAspect {
         System.out.println("Annotation intercept :"+annotation.name());
     }
 
-    @Before("execution(* springboot.DemoMethodService.add(..))")
+    @Before("execution(* springboot.aop.DemoMethodService.add(..))")
     public void before(JoinPoint joinPoint) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();

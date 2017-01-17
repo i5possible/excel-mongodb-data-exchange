@@ -1,4 +1,4 @@
-package springboot;
+package springboot.di;
 
 import org.springframework.context.annotation.Bean;
 

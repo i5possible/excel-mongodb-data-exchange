@@ -1,4 +1,4 @@
-package springboot;
+package springboot.di;
 
 public class FunctionService {
     public void sayHello() {
