@@ -100,7 +100,7 @@ public class LinkedDropDownLists {
         // to convert the selection the user makes in that first drop down
         // into the addresses of a named region of cells and then to use
         // those cells to populate the second drop down list.
-        addressList = new CellRangeAddressList(0, 0, 1, 1);
+        addressList = new CellRangeAddressList(0, 3000, 1, 1);
         dvConstraint = dvHelper.createFormulaListConstraint(
                 "INDIRECT(UPPER($A$1))");
         validation = dvHelper.createValidation(dvConstraint, addressList);

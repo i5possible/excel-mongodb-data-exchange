@@ -26,8 +26,10 @@ public class CardExportController {
     @Value(value = "export.home")
     String homePath;
 
+    public final String XLSX_VALUE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
     @GetMapping(value = "cards/{cardId}/export",
-            produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            produces = XLSX_VALUE)
     public ResponseEntity exportCardsExcel(@PathVariable(value = "cardId") String cardId) {
         Map<String, String> filterMap = new HashMap();
         filterMap.put("cardId", cardId);
@@ -35,8 +37,7 @@ public class CardExportController {
         return getExportCardsResponseEntity(filterMap);
     }
 
-    @GetMapping(value = "cards/export",
-            produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    @GetMapping(value = "cards/export", produces = XLSX_VALUE)
     public ResponseEntity getCardsExcelBySize(@MatrixVariable Map<String, String> filterMap) {
         return getExportCardsResponseEntity(filterMap);
     }
