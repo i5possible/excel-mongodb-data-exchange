@@ -61,6 +61,7 @@ public class LinkedDropDownLists {
     public static void main(String[] args) throws IOException {
         LinkedDropDownLists linkedDropDownLists = new LinkedDropDownLists("dropdown.xlsx");
     }
+
     LinkedDropDownLists(String workbookName) throws IOException {
         // Using the ss.usermodel allows this class to support both binary
         // and xml based workbooks. The choice of which one to create is
@@ -85,6 +86,8 @@ public class LinkedDropDownLists {
         CellRangeAddressList addressList = new CellRangeAddressList(0, 0, 0, 0);
         DataValidationHelper dvHelper = sheet.getDataValidationHelper();
         DataValidationConstraint dvConstraint = dvHelper.createFormulaListConstraint("CHOICES");
+//        DataValidationConstraint dvConstraint = dvHelper.
+//                createExplicitListConstraint(new String[]{"input1", "input2", "input3"});
         DataValidation validation = dvHelper.createValidation(dvConstraint, addressList);
         sheet.addValidationData(validation);
 
@@ -132,6 +135,8 @@ public class LinkedDropDownLists {
         Row row = null;
         Cell cell = null;
         Name name = null;
+        String sheetName = dataSheet.getSheetName();
+        String sheetNamePrefix = "'" + sheetName + "'!";
 
         // The first row will hold the data for the first validation.
         row = dataSheet.createRow(10);
@@ -142,7 +147,10 @@ public class LinkedDropDownLists {
         cell = row.createCell(2);
         cell.setCellValue("Mineral");
         name = dataSheet.getWorkbook().createName();
-        name.setRefersToFormula("$A$11:$C$11");
+        /*
+        It's very import to add the sheet prefix, or the name name will be lost.
+         */
+        name.setRefersToFormula(sheetNamePrefix + "$A$11:$C$11");
         name.setNameName("CHOICES");
 
         // The next three rows will hold the data that will be used to
@@ -163,7 +171,7 @@ public class LinkedDropDownLists {
         cell = row.createCell(6);
         cell.setCellValue("Zebra");
         name = dataSheet.getWorkbook().createName();
-        name.setRefersToFormula("$A$12:$G$12");
+        name.setRefersToFormula(sheetNamePrefix + "$A$12:$G$12");
         name.setNameName("ANIMAL");
 
         row = dataSheet.createRow(12);
@@ -184,7 +192,7 @@ public class LinkedDropDownLists {
         cell = row.createCell(7);
         cell.setCellValue("Chard");
         name = dataSheet.getWorkbook().createName();
-        name.setRefersToFormula("$A$13:$H$13");
+        name.setRefersToFormula(sheetNamePrefix + "$A$13:$H$13");
         name.setNameName("VEGETABLE");
 
         row = dataSheet.createRow(13);
@@ -201,7 +209,7 @@ public class LinkedDropDownLists {
         cell = row.createCell(5);
         cell.setCellValue("Mica");
         name = dataSheet.getWorkbook().createName();
-        name.setRefersToFormula("$A$14:$F$14");
+        name.setRefersToFormula(sheetNamePrefix + "$A$14:$F$14");
         name.setNameName("MINERAL");
     }
 }
