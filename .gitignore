@@ -33,3 +33,6 @@ bin
 
 # resource file
 src/main/resources
+
+# xlsx file
+*.xlsx
