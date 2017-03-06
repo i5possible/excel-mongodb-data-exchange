@@ -1,18 +1,38 @@
 package java8.datetime;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class Java8Tester {
     public static void main(String args[]) {
         Java8Tester java8tester = new Java8Tester();
-        java8tester.testLocalDateTime();
-        java8tester.testZonedDateTime();
-        java8tester.testChromoUnits();
-        java8tester.testPeriod();
-        java8tester.testDuration();
-        java8tester.testBackwardCompatability();
+//        java8tester.testLocalDateTime();
+//        java8tester.testZonedDateTime();
+//        java8tester.testChromoUnits();
+//        java8tester.testPeriod();
+//        java8tester.testDuration();
+//        java8tester.testBackwardCompatability();
+
+        System.out.println(ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")));
+
+        System.out.println("testZonedDateTime");
+        // Get the current date and time
+        ZonedDateTime date1 = ZonedDateTime.parse("2007-12-03T10:15:30+05:30[Asia/Karachi]");
+        System.out.println("date1: " + date1);
+        ZoneId zone = date1.getZone();
+        System.out.println(zone);
+
+        ZoneId id = ZoneId.of("Europe/Paris");
+        System.out.println("ZoneId: " + id);
+        ZonedDateTime zonedDateTime = date1.withZoneSameInstant(id);
+        System.out.println("ParisTime :" + zonedDateTime);
+
+        ZoneId currentZone = ZoneId.systemDefault();
+        System.out.println("CurrentZone: " + currentZone);
+        ZonedDateTime currentZoneDateTime = date1.withZoneSameInstant(currentZone);
+        System.out.println("CurrentTime : " + currentZoneDateTime);
     }
 
     public void testLocalDateTime() {
