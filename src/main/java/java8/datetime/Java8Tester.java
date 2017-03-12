@@ -148,4 +148,12 @@ public class Java8Tester {
         ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(now, currentZone);
         System.out.println("Zoned date: " + zonedDateTime);
     }
+
+    public LocalDate convertDateToLocalDate(Date date) {
+        return date.toInstant().atZone(ZoneId.of("zoneId")).toLocalDate();
+    }
+
+    public ZonedDateTime convertDateToZoneDateTime(Date date) {
+        return ZonedDateTime.ofInstant(date.toInstant(), ZoneId.of(""));
+    }
 }
