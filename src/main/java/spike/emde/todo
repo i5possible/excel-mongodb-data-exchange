@@ -2,4 +2,5 @@
 2. Deal with the to export field in a better way.
 3. Use .properties or .yml to be more flex.
 4. How to design the unit test? Especially for the adapter method that deal with the excel file.
+get the data first, then write to the excel.
 5. 
