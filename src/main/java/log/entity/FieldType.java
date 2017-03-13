@@ -1,4 +1,4 @@
-package spike.emde.entity;
+package log.entity;
 
 public enum FieldType {
     TEXT("text"), NUMBER("number"), DATE("date"), USER("user"), BOOLEAN("boolean"), LIST("list");

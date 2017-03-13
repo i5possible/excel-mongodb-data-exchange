@@ -1,4 +1,4 @@
-package spike.emde.entity;
+package log.entity;
 
 public class FieldValueChange {
     private String fieldName;

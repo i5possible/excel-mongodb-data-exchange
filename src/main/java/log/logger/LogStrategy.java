@@ -1,7 +1,7 @@
-package spike.emde.logger;
+package log.logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import spike.emde.repository.OperationLogRepository;
+import log.repository.OperationLogRepository;
 
 public abstract class LogStrategy {
 

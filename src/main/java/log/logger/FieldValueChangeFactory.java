@@ -1,9 +1,9 @@
-package spike.emde.logger;
+package log.logger;
 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spike.emde.entity.FieldValueChange;
+import log.entity.FieldValueChange;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

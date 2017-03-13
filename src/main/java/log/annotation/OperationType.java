@@ -1,4 +1,4 @@
-package spike.emde.annotation;
+package log.annotation;
 
 import java.io.Serializable;
 

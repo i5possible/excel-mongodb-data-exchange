@@ -1,7 +1,7 @@
-package spike.emde.logger;
+package log.logger;
 
-import spike.emde.annotation.OperationType;
-import spike.emde.entity.OperationLog;
+import log.annotation.OperationType;
+import log.entity.OperationLog;
 
 public abstract class CreateEntityLogStrategyTemplate<T> extends LogStrategy {
     @Override

@@ -1,6 +1,6 @@
-package spike.emde.logger;
+package log.logger;
 
-import spike.emde.entity.FieldValueChange;
+import log.entity.FieldValueChange;
 
 import java.lang.reflect.Field;
 import java.util.List;

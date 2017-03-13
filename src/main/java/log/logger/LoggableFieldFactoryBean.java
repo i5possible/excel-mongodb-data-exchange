@@ -1,9 +1,9 @@
-package spike.emde.logger;
+package log.logger;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import spike.emde.annotation.LoggableEntity;
+import log.annotation.LoggableEntity;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

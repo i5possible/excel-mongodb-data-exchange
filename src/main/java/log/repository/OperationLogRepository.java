@@ -1,7 +1,7 @@
-package spike.emde.repository;
+package log.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import spike.emde.entity.OperationLog;
+import log.entity.OperationLog;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
-package spike.emde.entity;
+package log.entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
-import spike.emde.annotation.OperationType;
+import log.annotation.OperationType;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
