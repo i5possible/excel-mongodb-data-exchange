@@ -1,9 +1,11 @@
 package java8.datetime;
 
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Java8Tester {
     public static void main(String args[]) {
@@ -14,6 +16,9 @@ public class Java8Tester {
 //        java8tester.testPeriod();
 //        java8tester.testDuration();
 //        java8tester.testBackwardCompatability();
+
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat();
+        ZoneId.of("-1");
 
         System.out.println(ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS")));
 
@@ -33,6 +38,10 @@ public class Java8Tester {
         System.out.println("CurrentZone: " + currentZone);
         ZonedDateTime currentZoneDateTime = date1.withZoneSameInstant(currentZone);
         System.out.println("CurrentTime : " + currentZoneDateTime);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
+        simpleDateFormat.format("");
     }
 
     public void testLocalDateTime() {

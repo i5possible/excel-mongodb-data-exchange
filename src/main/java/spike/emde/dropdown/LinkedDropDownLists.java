@@ -18,7 +18,11 @@ package spike.emde.dropdown;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellRangeAddressList;
+import org.apache.poi.ss.util.CellUtil;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileOutputStream;
@@ -59,8 +63,82 @@ import java.io.IOException;
 public class LinkedDropDownLists {
 
     public static void main(String[] args) throws IOException {
-        LinkedDropDownLists linkedDropDownLists = new LinkedDropDownLists("dropdown.xlsx");
+//        LinkedDropDownLists linkedDropDownLists = new LinkedDropDownLists("dropdown.xlsx");
+        LinkedDropDownLists.AddBorder("border.xlsx");
     }
+
+
+    static void AddBorder(String workbookName) throws  IOException {
+        Workbook workbook;
+        if (workbookName.endsWith(".xlsx")) {
+            workbook = new XSSFWorkbook();
+        } else {
+            workbook = new HSSFWorkbook();
+        }
+
+        Sheet sheet = workbook.createSheet("Border");
+        CellRangeAddressList addressList = new CellRangeAddressList(0, 0, 0, 0);
+        DataValidationHelper dvHelper = sheet.getDataValidationHelper();
+        CellStyle medium = workbook.createCellStyle();
+        medium.setBorderBottom(BorderStyle.MEDIUM);
+        medium.setBorderLeft(BorderStyle.MEDIUM);
+        medium.setBorderRight(BorderStyle.MEDIUM);
+        medium.setBorderTop(BorderStyle.MEDIUM);
+        sheet.setDefaultColumnStyle(0, medium);
+
+        CellStyle thin = workbook.createCellStyle();
+        thin.setBorderBottom(BorderStyle.THIN);
+        thin.setBorderLeft(BorderStyle.THIN);
+        thin.setBorderRight(BorderStyle.THIN);
+        thin.setBorderTop(BorderStyle.THIN);
+        sheet.setDefaultColumnStyle(2, thin);
+
+        CreationHelper creationHelper = workbook.getCreationHelper();
+        CellStyle dataFormat = workbook.createCellStyle();
+        ExtendedColor extendedColor = creationHelper.createExtendedColor();
+        extendedColor.setARGBHex("b8b8b8");
+        System.out.println("indexed ? " + extendedColor.isIndexed());
+
+        Row row = sheet.createRow(0);
+        XSSFCellStyle background = (XSSFCellStyle) workbook.createCellStyle();
+
+//        CellStyle background = row.getRowStyle();
+        XSSFColor xssfColor = new XSSFColor(new java.awt.Color(184, 184, 184));
+        background.setFillForegroundColor(xssfColor);
+        background.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        row.setRowStyle(background);
+        Cell cell = row.createCell(0);
+        cell.setCellValue(123);
+
+        Row row1 = sheet.createRow(1);
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.index);
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        row1.setRowStyle(cellStyle);
+        Cell cell1 = row1.createCell(0);
+        cell1.setCellValue(333);
+
+        Cell test = CellUtil.createCell(row, 0, "2017-01-13");
+        test.setCellType(CellType.STRING);
+
+        CellRangeAddress region = new CellRangeAddress(
+                4, //first row (0-based)
+                6, //last row  (0-based)
+                4, //first column (0-based)
+                6  //last column  (0-based)
+        );
+        NotesService notesService = new NotesService();
+        notesService.addRegionBorder(sheet, region);
+
+        System.out.println(sheet.getLastRowNum());
+
+        FileOutputStream fos = new FileOutputStream(workbookName);
+        workbook.write(fos);
+        fos.close();
+        workbook.close();
+    }
+
+
 
     LinkedDropDownLists(String workbookName) throws IOException {
         // Using the ss.usermodel allows this class to support both binary
@@ -105,6 +183,8 @@ public class LinkedDropDownLists {
                 "INDIRECT(UPPER($A$1))");
         validation = dvHelper.createValidation(dvConstraint, addressList);
         sheet.addValidationData(validation);
+        // freeze top t
+        sheet.createFreezePane(0, 2);
 
         FileOutputStream fos = new FileOutputStream(workbookName);
         workbook.write(fos);
